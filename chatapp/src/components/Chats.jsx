@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { signOut } from "firebase/auth";
-import { getFirestore, collection, doc, addDoc, deleteDoc, getDocs, orderBy, query, onSnapshot } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, onSnapshot, limit } from 'firebase/firestore';
 import '../assets/Chats.scss';
 import MessageBox from './MessageBox';
 
@@ -10,7 +10,9 @@ function Chats(props) {
   const [inputValue, setInputValue] = useState('');
   const firestore = getFirestore(app);
   const messageCollection = collection(firestore, 'messages')
-  const sortedQuery = query(messageCollection, orderBy('createdAt'));
+  
+  // sort query by createdAt timestamp in descending order and limit to returning 15 elements
+  const sortedQuery = query(messageCollection, orderBy('createdAt', 'desc'), limit(15));
 
   useEffect(() => {
     // real-time listener for event changes
@@ -79,12 +81,11 @@ function Chats(props) {
     <>
       <button id="signout-button" onClick={() => logOut()}>sign out</button>
       <div id="chats-div">
-        <p>chats goes here</p>
         <span id="chat-buttons">
           <button onClick={() => refreshChat()}>refresh</button>
           <button onClick={() => clearChat()}>clear</button>
-
         </span>
+        <h4>CHAT AWAY</h4>
         <div>
           {data && data?.map((msg, index) => <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg.text}/>)}
           {/* <MessageBox data={data} /> */}
