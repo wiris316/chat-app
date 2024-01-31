@@ -14,9 +14,8 @@ function App() {
   return (
     <>
       {currentUser ? 
-        <Chats auth={auth} validated={validated} setValidated={setValidated} app={app} setApp={setApp} />
-        :
-        <SignIn validated={validated} setValidated={setValidated} app={app} setApp={setApp} />}
+      <Chats auth={auth} validated={validated} setValidated={setValidated} app={app} setApp={setApp} currentUser={currentUser} />
+      :<SignIn validated={validated} setValidated={setValidated} app={app} setApp={setApp} />}
     </>
   )
 }
