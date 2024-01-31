@@ -1,0 +1,31 @@
+#chats-div{
+  background-color: rgba(13, 59, 70, 0.705);
+  color:rgb(47, 71, 115);
+  border-radius: 30px;
+  height: 750px;
+  display:flex;
+  flex-direction: column;
+}
+
+#signout-button{
+  left:30%;
+  position:relative;
+}
+
+#message-form{
+  display:flex;
+  height:26;
+  /* justify-content: flex-end; */
+  /* bottom:0; */ 
+  margin:auto 5px 10px 5px;
+  margin-bottom:10px;
+}
+
+#chat-buttons{
+  display:flex;
+}
+#chat-buttons button{
+  padding:5px;
+  /* margin:0; */
+
+}
