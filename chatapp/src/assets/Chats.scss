@@ -1,31 +1,81 @@
 #chats-div{
-  background-color: rgba(13, 59, 70, 0.705);
-  color:rgb(47, 71, 115);
-  border-radius: 30px;
-  height: 750px;
+  // background-color: rgba(17, 47, 47, 0.923);
+  // color:rgb(47, 71, 115);
+  border-radius: 20px;
+  border-width:20px;
+  border:solid;
+  border-color: #49c350f4;
+  border-width: 1.5px;
+  box-shadow: 2px 2px 15px #0bd47dea;
+  height: 650px;
   display:flex;
   flex-direction: column;
+  
+  h4{
+    color:rgb(181, 181, 183);
+  }
+
+  button {
+    background-color: rgba(17, 47, 47, 0.017);
+    color:white;
+    font-size: 18px;
+    // border-bottom:solid;
+  }
+  #clear{
+    background-color: rgb(243, 111, 111);
+    color:rgb(54, 53, 53);
+  }
+  #refresh{
+    border:solid;
+    border-width:1px;
+  }
 }
 
 #signout-button{
-  left:30%;
+  left:35%;
   position:relative;
+  background-color: rgba(17, 47, 47, 0.017);
+  color:white;
+  border:none;
+  z-index:2;
+  &:hover{
+    transform: scale(1.2);
+  }
 }
 
 #message-form{
   display:flex;
   height:26;
-  /* justify-content: flex-end; */
-  /* bottom:0; */ 
   margin:auto 5px 10px 5px;
-  margin-bottom:10px;
+  border-top:solid;
+  border-color:rgb(181, 181, 183);
+  padding-top:10px;
+  input {
+    border-radius: 10px;
+    margin-left:3px;
+    margin-right: 3px;
+  }
+  button {
+    padding: 5px;
+    border:none;
+    color:rgb(54, 53, 53);
+    background-color: #5ddf95;
+  }
 }
 
 #chat-buttons{
   display:flex;
-}
-#chat-buttons button{
-  padding:5px;
-  /* margin:0; */
-
+  justify-content: space-between;
+  border-bottom:solid;
+  border-color:rgb(181, 181, 183);
+  border-width:1.3px;
+  
+  button{
+    padding:5px;
+    right:0%;
+    margin:10px;
+    // display:flex;
+    /* margin:0; */
+    
+  }
 }

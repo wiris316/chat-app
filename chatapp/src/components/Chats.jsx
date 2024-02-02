@@ -12,7 +12,7 @@ function Chats(props) {
   const messageCollection = collection(firestore, 'messages')
   
   // sort query by createdAt timestamp in descending order and limit to returning 15 elements
-  const sortedQuery = query(messageCollection, orderBy('createdAt', 'desc'), limit(15));
+  const sortedQuery = query(messageCollection, orderBy('createdAt'), limit(15));
 
   useEffect(() => {
     // real-time listener for event changes
@@ -82,18 +82,17 @@ function Chats(props) {
       <button id="signout-button" onClick={() => logOut()}>sign out</button>
       <div id="chats-div">
         <span id="chat-buttons">
-          <button onClick={() => refreshChat()}>refresh</button>
-          <button onClick={() => clearChat()}>clear</button>
+          <button id="refresh" onClick={() => refreshChat()}>refresh</button>
+          <button id="clear" onClick={() => clearChat()}>clear</button>
         </span>
         <h4>CHAT AWAY</h4>
         <div>
           {data && data?.map((msg, index) => <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg.text}/>)}
-          {/* <MessageBox data={data} /> */}
           
         </div>
         <form onSubmit={sendMessage} id="message-form">
           <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-          <button>send</button>
+          <button id="send-button">send</button>
         </form>
       </div>
     </>
