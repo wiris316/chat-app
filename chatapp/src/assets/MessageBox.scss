@@ -1,27 +1,17 @@
 .sent{
-  // background-color: rgb(152, 202, 238);
-  color:white;
+  color:rgb(234, 234, 234);
   background: rgba(190, 190, 207, 0.248);
-  // background: linear-gradient(90deg, rgba(190,190,207,1) 0%, rgb(122, 176, 214) 60%); 
-  // margin: 40px;
   margin: 0 50px 30px 3px;
   border-radius: 10px;
-  // margin-left: 3px;
   text-align:left;
   padding-left:25px;
-  // box-shadow: 2px 2px 5px #2366adea;
-
 }
 
 .received{
-  // background-color: rgb(221, 206, 245);
   background-color: rgba(222, 222, 244, 0.677);
   color:black;
-  // background: rgb(18,185,118);
-  // background: linear-gradient(90deg, rgb(230, 206, 150) 5%, rgb(190, 207, 204) 100%); 
   margin: 0 3px 30px 50px;
   border-radius: 10px;
-  // margin-right: 3px;
   text-align: right;
   padding-right:25px;
 }

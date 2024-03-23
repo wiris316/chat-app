@@ -1,7 +1,4 @@
-import { useState } from 'react';
-import { getAuth } from "firebase/auth";
 import '../assets/MessageBox.scss';
-
 
 function MessageBox(props) {
   const { data, uid, currentUser } = props;
@@ -10,9 +7,7 @@ function MessageBox(props) {
   return (
     <>
       <div className={messageClass}>
-
         {data}
-        
       </div>
     </>
   )
