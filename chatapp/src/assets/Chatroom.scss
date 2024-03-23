@@ -1,0 +1,33 @@
+#chatroom-container {
+  color:rgba(123, 232, 123, 0.771);
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.chatroom-div {
+  border:solid;
+  padding: 20px;
+  margin: 20px;
+  display:grid;
+  width: 100px;
+  border-radius: 20px;
+  &:hover{
+    transform: scale(1.2);
+  }
+}
+
+.join-button{
+  margin: 10px 20px 0px 20px;
+  padding: 5px 15px 5px 15px;
+  background-color: transparent;
+  color:rgb(75, 173, 218);
+  border:none;
+  
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color:rgb(49, 126, 91);
+    // transform: scale(1.5);
+
+  }
+}
