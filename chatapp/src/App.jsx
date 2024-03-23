@@ -1,21 +1,29 @@
-import { useState } from 'react';
-import { getAuth } from "firebase/auth";
+import { useEffect, useState } from 'react';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import './App.css'; 
 import SignIn from './components/SignIn';
-import Chats from './components/Chats'
+import Chatroom from './components/Chatroom';
 
 const auth = getAuth();
 
 function App() {
   const [validated, setValidated] = useState(false)
-  const currentUser = auth.currentUser // current logged in user
-  const [app, setApp] = useState(''); // state of firebase initialized app 
+  const currentUser = auth.currentUser 
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setValidated(true);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <>
       {currentUser ? 
-      <Chats auth={auth} validated={validated} setValidated={setValidated} app={app} setApp={setApp} currentUser={currentUser} />
-      :<SignIn validated={validated} setValidated={setValidated} app={app} setApp={setApp} />}
+        <Chatroom auth={auth} validated={validated} setValidated={setValidated} currentUser={currentUser} />
+      : <SignIn validated={validated} setValidated={setValidated} />}
     </>
   )
 }

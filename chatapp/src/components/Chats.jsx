@@ -1,93 +1,96 @@
 import { useEffect, useState } from 'react';
 import { signOut } from "firebase/auth";
-import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, onSnapshot, limit } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, getDocs, orderBy, query, onSnapshot} from 'firebase/firestore';
+// import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc,getDocs, orderBy, query, onSnapshot, limit } from 'firebase/firestore';
 import '../assets/Chats.scss';
 import MessageBox from './MessageBox';
 
 function Chats(props) {
-  const { auth, validated, setValidated, app, currentUser } = props;
-  const [data, setData] = useState([]);
+  const { auth, validated, setValidated, currentUser, roomId, setRoomSelected, firestore } = props;
+  const [roomData, setRoomData] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const firestore = getFirestore(app);
-  const messageCollection = collection(firestore, 'messages')
-  
-  // sort query by createdAt timestamp in descending order and limit to returning 15 elements
-  const sortedQuery = query(messageCollection, orderBy('createdAt'), limit(15));
+  const messageContainer = document.querySelector('#messages-container')
+  const messagesRef = collection(firestore, 'chatroom', roomId, 'messages'); 
+  const sortedQuery = query(messagesRef, orderBy('createdAt'), /*limit(15)*/);
 
   useEffect(() => {
-    // real-time listener for event changes
-    const unsubscribe = onSnapshot(sortedQuery, (querySnapshot) => {
-      const data = [];
-      querySnapshot.forEach((doc) => {
-          data.push(doc.data());
+    const fetchRoomData = async () => {
+      onSnapshot(sortedQuery, (querySnapshot) => {
+        const data = [];
+        querySnapshot.forEach((doc) => {
+            data.push(doc.data());
+        });
+        setRoomData(data); 
       });
-      setData(data)
-    });
-
-    // stop listening when component unmounts
-    return () => {
-      unsubscribe()
     };
-  }, [])
+    fetchRoomData();
+  }, []);
   
   const logOut = () => {
-    signOut(auth).then(() => {
-      setValidated(!validated)
-      console.log('signed out success')
-    }).catch((error) => {
-      console.error(`${error}: an error occur while signing out`)
+    signOut(auth)
+      .then(() => {
+        console.log('successfully signed out..')
+        setValidated(!validated)
+      })
+      .catch((error) => {
+        console.error(`${error}: an error occur while signing out`)
     });
   }
 
   const refreshChat = async () => {
-    // const dataArray = [];
-    // const messages = await getDocs(messageCollection)
-    // messages.forEach((ele, index) => dataArray.push({ ...ele.data() }));
-    // setData([...dataArray])
     onSnapshot(sortedQuery, (querySnapshot) => {
       const data = [];
       querySnapshot.forEach((doc) => {
         data.push(doc.data());
       });
-      setData(data)
+      setRoomData(roomData)
     })
+  }
+
+  function scrollToBottom() {
+    messageContainer.scrollTop = messageContainer.scrollHeight;
   }
 
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    await addDoc(messageCollection, {
+    await addDoc(messagesRef, {
       createdAt: new Date(),
       text: inputValue,
       uid: currentUser.uid,
     })
     setInputValue('');
+    scrollToBottom();
   }
 
   const clearChat = async () => {
-    const querySnapshot = await getDocs(messageCollection);
-
+    const querySnapshot = await getDocs(messagesRef);
     // Delete each document in the collection
     const deletePromises = querySnapshot.docs.map(async (doc) => {
       await deleteDoc(doc.ref);
     });
-  
     // Wait for all document deletions to complete
     await Promise.all(deletePromises);
-  
+  }
+
+  const handleBackButton = () => {
+    setRoomSelected(false)
   }
 
   return (
     <>
-      <button id="signout-button" onClick={() => logOut()}>sign out</button>
-      <div id="chats-div">
-        <span id="chat-buttons">
-          <button id="refresh" onClick={() => refreshChat()}>refresh</button>
-          <button id="clear" onClick={() => clearChat()}>clear</button>
+      <div id='back-signout-buttons'>
+        <button id='back-button' onClick={handleBackButton}>back</button>
+        <button id="signout-button" onClick={() => logOut()}>sign out</button>
+      </div>
+      <div id='chats-div'>
+        <span id='chat-buttons'>
+          <button id='refresh' onClick={() => refreshChat()}>refresh</button>
+          <button id='clear' onClick={() => clearChat()}>clear</button>
         </span>
-        <h4>CHAT AWAY</h4>
-        <div>
-          {data && data?.map((msg, index) => <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg.text}/>)}
+        <h4>{roomId}</h4>
+        <div id='messages-container'>
+          {roomData.length > 0 && roomData?.map((msg, index) => <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg.text}/>)}
           
         </div>
         <form onSubmit={sendMessage} id="message-form">
