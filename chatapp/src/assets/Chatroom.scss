@@ -1,5 +1,5 @@
 #chatroom-container {
-  color:rgba(123, 232, 123, 0.771);
+  color:rgba(73, 69, 69, 0.747);
   display:flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -7,11 +7,14 @@
 
 .chatroom-div {
   border:solid;
-  padding: 20px;
-  margin: 20px;
+  margin: 1vh;
+  padding: 25px 0 25px 0;
+  width: 40%;
   display:grid;
-  width: 100px;
+  height: 8vh;
   border-radius: 20px;
+  background-color: rgba(229, 229, 236, 0.696);
+  
   &:hover{
     transform: scale(1.2);
   }
@@ -21,13 +24,20 @@
   margin: 10px 20px 0px 20px;
   padding: 5px 15px 5px 15px;
   background-color: transparent;
-  color:rgb(75, 173, 218);
+  color:rgba(78, 113, 241, 0.867);
   border:none;
   
   &:hover {
     text-decoration: underline;
     text-decoration-color:rgb(49, 126, 91);
     // transform: scale(1.5);
-
+    
   }
+}
+
+@media only screen and (max-width: 1400px){
+  .chatroom-div{
+    width: 75%;
+  }
+  
 }
