@@ -89,12 +89,15 @@ function Chats(props) {
           <button id='clear' onClick={() => clearChat()}>clear</button>
         </span>
         <h4>{roomId}</h4>
-        <div id='messages-container'>
-          {roomData.length > 0 && roomData?.map((msg, index) => <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg.text}/>)}
-          
-        </div>
+        {roomData.length > 0 ? 
+          <div id='messages-container'>
+            {roomData?.map((msg, index) => <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg.text}/>)}
+            
+          </div>
+          : <p id='emptyChat-message'>This is the beginning of the chat.</p>
+        }
         <form onSubmit={sendMessage} id="message-form">
-          <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+          <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} maxLength={300}/>
           <button id="send-button">send</button>
         </form>
       </div>

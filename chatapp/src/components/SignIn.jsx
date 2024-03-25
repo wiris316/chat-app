@@ -46,17 +46,20 @@ function SignIn(props) {
 
   return (
     <>
-      <h3 id='signin-header'>Sign In:</h3>
-      <form id="signin-form" onSubmit={(e)=>signInWithEmail(e,emailVal,passwordVal)}>
-        <label>Email:</label>
-        <input className="signin-input" value={emailVal} onChange={(e)=>setEmailVal(e.target.value)} />
-        <label>Password:</label>
-        <input className="signin-input" value={passwordVal} onChange={(e)=> setPasswordVal(e.target.value)} />
-        <span id="signin-form-buttons">
-          <button type="submit" id="signin-button">sign in</button>
-          <button type="button" id="create-account-button" onClick={()=>createAccount(emailVal, passwordVal)}> create account</button>
-        </span>
-      </form>
+      <div id='signin-content'>
+        <h3 id='signin-header'>Sign In:</h3>
+        <form id="signin-form" onSubmit={(e)=>signInWithEmail(e,emailVal,passwordVal)}>
+          <label>Email:</label>
+          <input className="signin-input" value={emailVal} onChange={(e)=>setEmailVal(e.target.value)} />
+          <label>Password:</label>
+          <input className="signin-input" value={passwordVal} onChange={(e)=> setPasswordVal(e.target.value)} />
+          <span id="signin-form-buttons">
+            <button type="submit" id="signin-button">sign in</button>
+            <button type="button" id="create-account-button" onClick={()=>createAccount(emailVal, passwordVal)}> create account</button>
+          </span>
+        </form>
+
+      </div>
 
     </>
   )

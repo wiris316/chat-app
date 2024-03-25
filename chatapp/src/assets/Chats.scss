@@ -2,12 +2,20 @@
   border-radius: 20px;
   border-width:20px;
   border:solid;
-  border-color: #49c350f4;
+  border-color: #a2caa4f4;
   border-width: 1.5px;
-  box-shadow: 2px 2px 15px #0bd47dea;
+  box-shadow: 2px 2px 15px #0b0c0cea;
   height: 650px;
+  width: 300px;
   display:flex;
   flex-direction: column;
+  background-color: rgb(229, 229, 236);
+
+  #emptyChat-message{
+    color: rgba(17, 47, 47, 0.369);
+    margin-top:-10px;
+    font-size: smaller;
+  }
 
   #messages-container{
     height: 100%;
@@ -16,12 +24,12 @@
   }
   
   h4{
-    color:rgb(181, 181, 183);
+    color:rgb(125, 125, 140);
   }
 
   button {
     background-color: rgba(17, 47, 47, 0.017);
-    color:rgb(234, 234, 234);
+    color:rgb(73, 69, 69);
     font-size: 18px;
   }
 
@@ -48,13 +56,16 @@
     border-radius: 10px;
     margin-left:3px;
     margin-right: 3px;
-    background-color: rgb(234, 234, 234);;
+    background-color: rgba(253, 253, 253, 0.926);
+    box-shadow: none;
+    width: 100%;
+    border:0;
   }
 
   button {
     padding: 5px;
     border:none;
-    color:rgb(54, 53, 53);
+    color:rgb(73, 69, 69);
     background-color: #5ddf95;
     border-radius: 10px;
   }
@@ -84,7 +95,7 @@
   button{
     position:relative;
     background-color: transparent;
-    color:rgb(238, 234, 234);
+    color:rgb(73, 69, 69);
     border:none;
     
     z-index:2;

@@ -1,27 +1,37 @@
+#signin-content {
+  margin-top:-100px;
+}
+
 #signin-header {
-  color:rgb(234, 234, 234);
+  color:rgb(73, 69, 69);
   margin-bottom:10px;
 }
 
 #signin-form {
   color:rgb(234, 234, 234);
+  background-color: rgba(209, 209, 215, 0.788);
   display:grid;
   border:solid;
   border-radius: 15px;
   padding: 20px;
-  border-color:rgb(123, 232, 123);
+  border-color: #a2caa4f4;
+  box-shadow: 2px 2px 15px #0b0c0cea;
   border-width: 1px;
 
   label {
     display:flex;
     justify-content: flex-start;
     margin-top:15px;
+    color:rgb(73, 69, 69);
+
   }
 
   .signin-input {
-    border-radius:5px;
-    margin-bottom: 5px;
-    background-color: rgba(234, 238, 237, 0.782);
+    border-radius:3px;
+    margin: 5px 0 5px 0;
+    background-color: rgba(234, 238, 237, 0.963);
+    box-shadow:none;
+    border: 0;
   }
 
   #signin-form-buttons{
@@ -31,7 +41,7 @@
     justify-self: flex-end;
     
     #signin-button{
-      color:rgba(40, 39, 39, 0.773);
+      color:rgb(73, 69, 69);
       margin-left:auto;
       background-color: rgb(76, 202, 76);;
     }
@@ -39,12 +49,12 @@
     #create-account-button{
       margin-top: 5px;
       border:solid;
-      border-color:rgb(123, 232, 123);
+      border-color:rgb(75, 75, 79);
       border-width: 1px;
     }
     
     button {
-      color:rgb(234, 234, 234);
+      color:rgb(73, 69, 69);
       background-color: transparent;
       padding: 2px 10px 2px 10px;
       width:max-content;

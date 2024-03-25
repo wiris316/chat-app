@@ -6,8 +6,13 @@ function MessageBox(props) {
 
   return (
     <>
-      <div className={messageClass}>
-        {data}
+      <div id='message-container'>
+        <div className={messageClass}>
+          <p className='message-content'>
+            {data}
+          </p>
+        </div>
+
       </div>
     </>
   )
