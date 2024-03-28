@@ -36,6 +36,7 @@ function Chatroom(props) {
 
   return (
     <>
+      <button id='signout-button'>sign out</button>
       {
         roomSelected ?
           <Chats auth={auth} validated={validated} setValidated={setValidated} currentUser={currentUser} roomId={roomId} setRoomSelected={setRoomSelected} firestore={firestore} />

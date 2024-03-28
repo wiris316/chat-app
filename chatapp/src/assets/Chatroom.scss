@@ -5,6 +5,19 @@
   justify-content: center;
 }
 
+#signout-button{
+  position:relative;
+  background-color: transparent;
+  color:rgb(73, 69, 69);
+  border:none;
+  
+  z-index:2;
+  &:hover{
+    transform: scale(1.5);
+  }
+
+}
+
 .chatroom-div {
   border:solid;
   margin: 1vh;
