@@ -1,5 +1,6 @@
 import '../assets/Chatroom.scss';
 import { useEffect, useState } from 'react';
+import { signOut } from "firebase/auth";
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 // import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, doc, onSnapshot, limit } from 'firebase/firestore';
 import Chats from './Chats';
@@ -29,6 +30,18 @@ function Chatroom(props) {
     };
   }, []); 
 
+  const logOut = () => {
+    console.log('in here')
+    signOut(auth)
+      .then(() => {
+        console.log('successfully signed out..')
+        setValidated(!validated)
+      })
+      .catch((error) => {
+        console.error(`${error}: an error occur while signing out`)
+    });
+  }
+
   const handleJoinRoom = (id) => {
     setRoomId(id)
     setRoomSelected(true)
@@ -36,17 +49,20 @@ function Chatroom(props) {
 
   return (
     <>
-      <button id='signout-button'>sign out</button>
       {
         roomSelected ?
-          <Chats auth={auth} validated={validated} setValidated={setValidated} currentUser={currentUser} roomId={roomId} setRoomSelected={setRoomSelected} firestore={firestore} />
-        : <div id='chatroom-container'>
+        <Chats auth={auth} validated={validated} setValidated={setValidated} currentUser={currentUser} roomId={roomId} setRoomSelected={setRoomSelected} firestore={firestore} logOut={logOut} />
+      :
+        <div>
+          <button id='signout-button' onClick={()=>logOut()}>sign out</button>
+          <div id='chatroom-container'>
             {chatRooms.length > 0 && chatRooms.map((room, i) =>
               <div key={i} className='chatroom-div'>{room.id}
                 <button className='join-button' onClick={()=> handleJoinRoom(room.id)}>join</button>
               </div>
             )}
           </div>
+        </div>
       }
     </>
   )
