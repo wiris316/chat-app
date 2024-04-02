@@ -53,11 +53,11 @@ function Chatroom(props) {
         roomSelected ?
         <Chats auth={auth} validated={validated} setValidated={setValidated} currentUser={currentUser} roomId={roomId} setRoomSelected={setRoomSelected} firestore={firestore} logOut={logOut} />
       :
-        <div>
+        <div id='chatroom-container'>
           <button id='signout-button' onClick={()=>logOut()}>sign out</button>
-          <div id='chatroom-container'>
+          <div id='chatroom-div'>
             {chatRooms.length > 0 && chatRooms.map((room, i) =>
-              <div key={i} className='chatroom-div'>{room.id}
+              <div key={i} className='chatroom-box'>{room.id}
                 <button className='join-button' onClick={()=> handleJoinRoom(room.id)}>join</button>
               </div>
             )}
