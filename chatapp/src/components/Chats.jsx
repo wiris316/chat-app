@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { signOut } from "firebase/auth";
 import { collection, addDoc, deleteDoc, getDocs, orderBy, query, onSnapshot} from 'firebase/firestore';
 // import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc,getDocs, orderBy, query, onSnapshot, limit } from 'firebase/firestore';
 import '../assets/Chats.scss';
 import MessageBox from './MessageBox';
 
 function Chats(props) {
-  const { auth, validated, setValidated, currentUser, roomId, setRoomSelected, firestore } = props;
+  const { currentUser, roomId, setRoomSelected, firestore, logOut } = props;
   const [roomData, setRoomData] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const messageContainer = document.querySelector('#messages-container')
@@ -25,17 +24,6 @@ function Chats(props) {
     };
     fetchRoomData();
   }, []);
-  
-  const logOut = () => {
-    signOut(auth)
-      .then(() => {
-        console.log('successfully signed out..')
-        setValidated(!validated)
-      })
-      .catch((error) => {
-        console.error(`${error}: an error occur while signing out`)
-    });
-  }
 
   const refreshChat = async () => {
     onSnapshot(sortedQuery, (querySnapshot) => {
@@ -47,7 +35,7 @@ function Chats(props) {
     })
   }
 
-  function scrollToBottom() {
+  const scrollToBottom = () => {
     messageContainer.scrollTop = messageContainer.scrollHeight;
   }
 
@@ -91,7 +79,7 @@ function Chats(props) {
         <h4>{roomId}</h4>
         {roomData.length > 0 ? 
           <div id='messages-container'>
-            {roomData?.map((msg, index) => <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg.text}/>)}
+            {roomData?.map((msg, index) => <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg}/>)}
             
           </div>
           : <p id='emptyChat-message'>This is the beginning of the chat.</p>
