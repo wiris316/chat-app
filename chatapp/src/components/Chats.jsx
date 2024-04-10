@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { collection, addDoc, deleteDoc, getDocs, orderBy, query, onSnapshot} from 'firebase/firestore';
 // import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc,getDocs, orderBy, query, onSnapshot, limit } from 'firebase/firestore';
 import '../assets/Chats.scss';
@@ -8,23 +8,28 @@ function Chats(props) {
   const { currentUser, roomId, setRoomSelected, firestore, logOut } = props;
   const [roomData, setRoomData] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const messageContainer = document.querySelector('#messages-container')
+  const chatBoxRef = useRef(null);
   const messagesRef = collection(firestore, 'chatroom', roomId, 'messages'); 
   const sortedQuery = query(messagesRef, orderBy('createdAt'), /*limit(15)*/);
-
+  
   useEffect(() => {
     const fetchRoomData = async () => {
       onSnapshot(sortedQuery, (querySnapshot) => {
         const data = [];
         querySnapshot.forEach((doc) => {
-            data.push(doc.data());
+          data.push(doc.data());
         });
         setRoomData(data); 
+
+        setTimeout(() => {
+          scrollToBottom();
+        }, 1000)
       });
     };
     fetchRoomData();
-  }, []);
 
+  }, []);
+  
   const refreshChat = async () => {
     onSnapshot(sortedQuery, (querySnapshot) => {
       const data = [];
@@ -32,11 +37,14 @@ function Chats(props) {
         data.push(doc.data());
       });
       setRoomData(roomData)
+      scrollToBottom();
     })
   }
-
+  
   const scrollToBottom = () => {
-    messageContainer.scrollTop = messageContainer.scrollHeight;
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
+    }
   }
 
   const sendMessage = async (e) => {
@@ -78,9 +86,10 @@ function Chats(props) {
         </span>
         <h4>{roomId}</h4>
         {roomData.length > 0 ? 
-          <div id='messages-container'>
-            {roomData?.map((msg, index) => <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg}/>)}
-            
+          <div id='messages-container' ref={chatBoxRef}>
+            {roomData?.map((msg, index) => 
+              <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg} />
+            )}           
           </div>
           : <p id='emptyChat-message'>This is the beginning of the chat.</p>
         }
