@@ -12,21 +12,22 @@
 }
 
 .sent{
-  display:grid;
   background: rgba(145, 176, 247, 0.48);
   color:rgb(73, 69, 69);
-  margin: 0 50px 10px 3px;
+  margin: 0 75px 10px 3px;
   border-radius: 10px;
   text-align:left;
   padding-left:20px;
   padding-right:10px;
+  align-self: flex-start;
   width:fit-content;
   max-width: 80%;
-    .message-content{
-      word-wrap: break-word;
-      max-width: 100%; 
-      margin: 5px 0 5px 0;
-    }
+
+  .message-content{
+    word-wrap: break-word;
+    max-width: 100%; 
+    margin: 5px 0 5px 0;
+  }
 }
 
 .received{
@@ -38,18 +39,16 @@
   padding-left: 10px;
   padding-right:20px;
   align-self: flex-end;
-  display:flex; 
   width:fit-content;
   max-width: 80%;
   
   .message-content{
-    word-wrap: break-word;
-    max-width: 80%; 
+    word-break: break-word;
+    max-width: 100%; 
     margin: 5px 0 5px 0;
   }
 
   .message-date {
     text-align: left !important;
-    
   }
 }
