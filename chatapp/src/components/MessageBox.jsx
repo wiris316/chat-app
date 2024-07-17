@@ -17,7 +17,7 @@ function MessageBox(props) {
       }
       setSenderIcon(newObj);
     }
-  }, [])
+  }, [userData])
   
   const setMsgWithDate = () => {
     if (data !== null) {
