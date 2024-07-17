@@ -134,7 +134,7 @@ function Chats(props) {
           : <p id='emptyChat-message'>This is the beginning of the chat.</p>
         }
         <form onSubmit={sendMessage} id="message-form">
-          <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} maxLength={300}/>
+          <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} maxLength={500}/>
           <button id="send-button">send</button>
         </form>
       </div>
