@@ -2,6 +2,7 @@ import "../assets/Chatroom.scss";
 import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 // import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, doc, onSnapshot, limit } from 'firebase/firestore';
 import Chats from "./Chats";
 
@@ -11,6 +12,7 @@ function Chatroom(props) {
   const [chatRooms, setChatRooms] = useState([]);
   const [roomSelected, setRoomSelected] = useState(false);
   const [roomId, setRoomId] = useState(null);
+  const [showSidebar, setShowSidebar] = useState(true);
 
   useEffect(() => {
     const fetchChatRooms = async () => {
@@ -49,6 +51,12 @@ function Chatroom(props) {
     setRoomSelected(true);
   };
 
+  const handleSidebarClick = () => {
+    if (roomSelected) {
+      setShowSidebar(!showSidebar);
+    }
+  };
+
   return (
     <>
       {/* {
@@ -66,24 +74,36 @@ function Chatroom(props) {
           </div>
         </div>
         } */}
-      <div id="chatroom-container">
-        {/* <button id="signout-button" onClick={() => logOut()}>
-          sign out
-        </button> */}
-        <div id="chatroom-div">
-          {chatRooms.length > 0 &&
-            chatRooms.map((room, i) => (
-              <div key={i} className="chatroom-box">
-                {room.id}
-                <button
-                  className="join-button"
-                  onClick={() => handleJoinRoom(room.id)}
-                >
-                  join
-                </button>
-              </div>
-            ))}
-        </div>
+      <button id="signout-button" onClick={() => logOut()}>
+        sign out
+      </button>
+      <div id="container">
+        {showSidebar &&
+          <div id="chatroom-div">
+            <div id="chatroom-header-container">
+              <h3 id="chatroom-header">ROOMS</h3>
+              <TbLayoutSidebarLeftCollapseFilled
+                id="sidebar-icon"
+                onClick={handleSidebarClick}
+              />
+            </div>
+            <div id="chatroom-container">
+              {chatRooms.length > 0 &&
+                chatRooms.map((room, i) => (
+                  <div
+                    key={i}
+                    className="chatroom-box"
+                    onClick={() => handleJoinRoom(room.id)}
+                  >
+                    <span className="chatroom-box-content">
+                      {room.id}
+                    </span>
+                  </div>
+                ))}
+            </div>
+          </div>
+        }
+        {/* <div className="vertical-divider"></div> */}
         {roomSelected && (
           <Chats
             auth={auth}
@@ -94,6 +114,8 @@ function Chatroom(props) {
             setRoomSelected={setRoomSelected}
             firestore={firestore}
             logOut={logOut}
+            showSidebar={showSidebar}
+            handleSidebarClick={handleSidebarClick}
           />
         )}
       </div>

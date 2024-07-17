@@ -1,3 +1,5 @@
+@import "global";
+
 #signout-button {
   background-color: transparent;
   color: rgb(73, 69, 69);
@@ -12,11 +14,10 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   width: 100%;
   height: 90vh;
 
-  .chatroom-div {
+  #chatroom-div {
     color: rgba(73, 69, 69, 0.747);
     display: flex;
     flex-direction: column;
@@ -29,7 +30,8 @@
       justify-content: center;
       margin: 0;
       color: white;
-      background-color: rgb(230, 172, 182);
+      // background-color: rgb(230, 172, 182);
+      background-color: $skyblue;
       display: sticky;
       position: relative;
       overflow: hidden;
@@ -49,23 +51,24 @@
 
     #chatroom-container {
       height: 100%;
+      border:solid rgb(66, 186, 230);
       overflow-x: hidden;
       overflow-y: auto; 
-      scrollbar-color: rgb(230, 172, 182) #c2d2e4; /* Thumb color and track color for firefox*/
+      scrollbar-color:  rgb(66, 186, 230) #c2d2e4; /* Thumb color and track color for firefox*/
     }
 
     /* Show scrollbar on hover for chrome*/
     &:hover #chatroom-container {
       padding-right: 0px; /* Remove padding to show scrollbar */
-      scrollbar-color: rgb(230, 172, 182) #c2d2e4; /* Thumb color and track color on hover */
+      scrollbar-color:  rgb(66, 186, 230) #c2d2e4; /* Thumb color and track color on hover */
 
       &::-webkit-scrollbar {
         width: 8px;
-        background-color: rgba(78, 148, 189, 0.414); /* Scrollbar track color */
+        background-color: rgba(136, 184, 211, 0.414); /* Scrollbar track color */
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: rgb(230, 172, 182); /* Scrollbar thumb color */
+        background-color:  rgb(66, 186, 230); /* Scrollbar thumb color */
       }
     }
 
@@ -83,22 +86,29 @@
   }
 
   .chatroom-box {
-    padding: 25px 0 25px 0;
+    padding: 10px 0;
     width: 20vw;
     min-width: 450px;
     display: grid;
     height: 100px;
-    background-color: rgba(229, 229, 236, 0.722);
-    border-bottom: 1px solid black;
+    // background-color: rgb(246, 246, 247);
+    background-color: rgba(246, 246, 247, 0);
+    border-bottom: 1px solid rgb(216, 233, 231);
 
     &:hover {
-      background-color: rgba(230, 172, 182, 0.289);
+      background-color:rgba(66, 186, 230, 0.242);
+    }
+
+    .chatroom-box-content{
+      background-color: rgba(66, 186, 230, 0.449);
+      border-radius:20px;
+      margin: 0 20px;
     }
   }
 
-  @media only screen and (max-width: 1400px) {
-    .chatroom-box {
-      // width: 75%;
-    }
-  }
+  // @media only screen and (max-width: 800px) {
+  //   #chatroom-div {
+  //     display:none;
+  //   }
+  // }
 }

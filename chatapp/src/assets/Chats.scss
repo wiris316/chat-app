@@ -7,12 +7,23 @@
   box-shadow: 2px 2px 15px #0b0c0cea;
   height: 90vh;
   margin: auto;
-  width: 60%;
-  max-width: 1500px;
+  width: 50%;
+  max-width: 850px;
   min-width: 350px;
   display: flex;
   flex-direction: column;
-  background-color: rgb(229, 229, 236);
+  background-color: rgb(246, 246, 247);
+
+  #sidebar-icon-in-chat {
+    color:  rgb(66, 186, 230);
+    width: 40px;
+    height: 40px;
+    margin-left: -50px;
+    position: fixed;
+    // margin-right:0;
+    // display:flex;
+    // justify-self: flex-end;
+  }
 
   #emptyChat-message {
     color: rgba(17, 47, 47, 0.369);
@@ -68,7 +79,7 @@
 
   button {
     width: 100px;
-    height:40px;
+    height: 40px;
     border: none;
     color: rgb(73, 69, 69);
     background-color: #5ddf95;
@@ -106,5 +117,11 @@
     &:hover {
       transform: scale(1.5);
     }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #sidebar-icon-in-chat{
+    display:block;
   }
 }
