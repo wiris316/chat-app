@@ -1,17 +1,17 @@
 #signin-content {
-  margin-top:-100px;
+  margin-top: -100px;
 }
 
 #signin-header {
-  color:rgb(73, 69, 69);
-  margin-bottom:10px;
+  color: rgb(73, 69, 69);
+  margin-bottom: 10px;
 }
 
 #signin-form {
-  color:rgb(234, 234, 234);
+  color: rgb(234, 234, 234);
   background-color: rgba(209, 209, 215, 0.788);
-  display:grid;
-  border:solid;
+  display: grid;
+  border: solid;
   border-radius: 15px;
   padding: 20px;
   border-color: #a2caa4f4;
@@ -19,48 +19,46 @@
   border-width: 1px;
 
   label {
-    display:flex;
+    display: flex;
     justify-content: flex-start;
-    margin-top:15px;
-    color:rgb(73, 69, 69);
-
+    margin-top: 15px;
+    color: rgb(73, 69, 69);
   }
 
   .signin-input {
-    border-radius:3px;
+    border-radius: 3px;
     margin: 5px 0 5px 0;
     background-color: rgba(234, 238, 237, 0.963);
-    box-shadow:none;
+    box-shadow: none;
     border: 0;
   }
 
-  #signin-form-buttons{
-    display:flex;
+  #signin-form-buttons {
+    display: flex;
     flex-direction: column;
     margin-top: 30px;
     justify-self: flex-end;
-    
-    #signin-button{
-      color:rgb(73, 69, 69);
-      margin-left:auto;
-      background-color: rgb(76, 202, 76);;
+
+    #signin-button {
+      color: rgb(73, 69, 69);
+      margin-left: auto;
+      background-color: rgb(76, 202, 76);
     }
 
-    #create-account-button{
+    #create-account-button {
       margin-top: 5px;
-      border:solid;
-      border-color:rgb(75, 75, 79);
+      border: solid;
+      border-color: rgb(75, 75, 79);
       border-width: 1px;
     }
-    
+
     button {
-      color:rgb(73, 69, 69);
+      color: rgb(73, 69, 69);
       background-color: transparent;
       padding: 2px 10px 2px 10px;
-      width:max-content;
+      width: max-content;
       text-align: right;
       border-radius: 5px;
-
     }
   }
 }

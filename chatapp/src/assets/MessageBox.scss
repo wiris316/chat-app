@@ -1,119 +1,119 @@
 #message-container {
-  display:flex;
+  display: flex;
   flex-direction: column;
   margin: 0;
   overflow-x: hidden;
-  font-size:14px;
+  font-size: 14px;
 
   .message-date {
-    font-size:10px;
+    font-size: 10px;
     margin: 0;
     text-align: right;
   }
 }
 
-.sent{
+.sent {
   background: rgba(145, 176, 247, 0.48);
-  color:rgb(73, 69, 69);
+  color: rgb(73, 69, 69);
   margin: 0 75px 10px 3px;
   border-radius: 10px;
-  text-align:left;
-  padding-left:20px;
-  padding-right:10px;
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 10px;
   align-self: flex-start;
-  width:fit-content;
+  width: fit-content;
   max-width: 80%;
-  position:relative;
+  position: relative;
 
-  .message-content{
+  .message-content {
     word-wrap: break-word;
-    max-width: 100%; 
+    max-width: 100%;
     margin: 5px 0 5px 5px;
   }
 
-  .blueCircle{
-    width:15px;
-    height:15px;
+  .blueCircle {
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    border:solid;
+    border: solid;
     border-color: whitesmoke;
-    position:absolute;
-    left:0;
+    position: absolute;
+    left: 0;
     background-color: rgb(66, 186, 230);
   }
-  
-  .greenCircle{
-    width:15px;
-    height:15px;
+
+  .greenCircle {
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    border:solid;
+    border: solid;
     border-color: whitesmoke;
-    left:0;
-    position:absolute;
+    left: 0;
+    position: absolute;
     background-color: rgb(94, 182, 94);
   }
 
-  .purpleCircle{
-    width:15px;
-    height:15px;
+  .purpleCircle {
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    border:solid;
+    border: solid;
     border-color: whitesmoke;
-    left:0;
-    position:absolute;
+    left: 0;
+    position: absolute;
     background-color: rgb(199, 116, 224);
   }
 }
 
-.received{
+.received {
   background-color: rgba(78, 113, 241, 0.867);
-  color:rgb(233, 226, 226);
+  color: rgb(233, 226, 226);
   margin: 0 3px 10px 75px;
   border-radius: 10px;
   text-align: left;
   padding-left: 10px;
-  padding-right:20px;
+  padding-right: 20px;
   align-self: flex-end;
-  width:fit-content;
+  width: fit-content;
   max-width: 80%;
-  position:relative;
-  
-  .message-content{
+  position: relative;
+
+  .message-content {
     word-break: break-word;
-    max-width: 100%; 
+    max-width: 100%;
     margin: 5px 5px 5px 0;
   }
 
-  .blueCircle{
-    width:15px;
-    height:15px;
+  .blueCircle {
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    border:solid;
+    border: solid;
     border-color: whitesmoke;
-    position:absolute;
-    right:0;
+    position: absolute;
+    right: 0;
     background-color: rgb(66, 186, 230);
   }
 
-  .greenCircle{
-    width:15px;
-    height:15px;
+  .greenCircle {
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    border:solid;
+    border: solid;
     border-color: whitesmoke;
-    right:0;
-    position:absolute;
+    right: 0;
+    position: absolute;
     background-color: rgb(94, 182, 94);
   }
 
-  .purpleCircle{
-    width:15px;
-    height:15px;
+  .purpleCircle {
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    border:solid;
+    border: solid;
     border-color: whitesmoke;
-    right:0;
-    position:absolute;
+    right: 0;
+    position: absolute;
     background-color: rgb(199, 116, 224);
   }
 

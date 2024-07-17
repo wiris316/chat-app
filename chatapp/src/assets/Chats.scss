@@ -1,107 +1,104 @@
-#chats-div{
+#chats-div {
   border-radius: 20px;
-  border-width:20px;
-  border:solid;
+  border-width: 20px;
+  border: solid;
   border-color: #a2caa4f4;
   border-width: 1.5px;
   box-shadow: 2px 2px 15px #0b0c0cea;
   height: 650px;
   width: 300px;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  background-color: rgb(229, 229, 236);  
+  background-color: rgb(229, 229, 236);
 
-  #emptyChat-message{
+  #emptyChat-message {
     color: rgba(17, 47, 47, 0.369);
-    margin-top:-10px;
+    margin-top: -10px;
     font-size: smaller;
   }
 
-  #messages-container{
+  #messages-container {
     height: 100%;
     overflow-y: auto;
   }
-  
-  h4{
-    color:rgb(125, 125, 140);
+
+  h4 {
+    color: rgb(125, 125, 140);
   }
 
   button {
     background-color: rgba(17, 47, 47, 0.017);
-    color:rgb(73, 69, 69);
+    color: rgb(73, 69, 69);
     font-size: 18px;
   }
 
-  #clear{
+  #clear {
     background-color: rgb(243, 111, 111);
-    color:rgba(26, 24, 24, 0.956);
+    color: rgba(26, 24, 24, 0.956);
   }
-  
-  #refresh{
-    border:solid;
-    border-width:1px;
+
+  #refresh {
+    border: solid;
+    border-width: 1px;
   }
 }
 
-#message-form{
-  display:flex;
-  height:26;
-  margin:auto 5px 10px 5px;
-  border-top:solid;
-  border-color:rgb(181, 181, 183);
-  padding-top:10px;
+#message-form {
+  display: flex;
+  height: 26;
+  margin: auto 5px 10px 5px;
+  border-top: solid;
+  border-color: rgb(181, 181, 183);
+  padding-top: 10px;
 
   input {
     border-radius: 10px;
-    margin-left:3px;
+    margin-left: 3px;
     margin-right: 3px;
     background-color: rgba(253, 253, 253, 0.926);
     box-shadow: none;
     width: 100%;
-    border:0;
+    border: 0;
   }
 
   button {
     padding: 5px;
-    border:none;
-    color:rgb(73, 69, 69);
+    border: none;
+    color: rgb(73, 69, 69);
     background-color: #5ddf95;
     border-radius: 10px;
   }
 }
 
-#chat-buttons{
-  display:flex;
+#chat-buttons {
+  display: flex;
   justify-content: space-between;
-  border-bottom:solid;
-  border-color:rgb(181, 181, 183);
-  border-width:1.3px;
-  
-  button{
-    padding:5px;
-    right:0%;
-    margin:10px;
+  border-bottom: solid;
+  border-color: rgb(181, 181, 183);
+  border-width: 1.3px;
+
+  button {
+    padding: 5px;
+    right: 0%;
+    margin: 10px;
     border-radius: 10px;
-    
   }
 }
 
 #back-signout-buttons {
   justify-content: space-between;
-  display:flex;
-  margin-bottom:5px;
+  display: flex;
+  margin-bottom: 5px;
 
-  button{
-    position:relative;
+  button {
+    position: relative;
     background-color: transparent;
-    color:rgb(73, 69, 69);
-    border:none;
-    
-    z-index:2;
-    &:hover{
+    color: rgb(73, 69, 69);
+    border: none;
+
+    z-index: 2;
+    &:hover {
       transform: scale(1.5);
     }
-
   }
 }
-

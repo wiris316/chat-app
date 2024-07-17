@@ -1,62 +1,58 @@
 #chatroom-container {
-  display:grid;
+  display: grid;
 
   #chatroom-div {
-    color:rgba(73, 69, 69, 0.747);
-    display:flex;
+    color: rgba(73, 69, 69, 0.747);
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
-  
-  #signout-button{
+
+  #signout-button {
     background-color: transparent;
-    color:rgb(73, 69, 69);
-    border:none;
+    color: rgb(73, 69, 69);
+    border: none;
     right: 0;
     justify-self: end;
     margin: 0 100px 10px 0;
-    
-    &:hover{
+
+    &:hover {
       transform: scale(1.5);
     }
-  
   }
-  
+
   .chatroom-box {
-    border:solid;
+    border: solid;
     margin: 1vh;
     padding: 25px 0 25px 0;
     width: 40%;
-    display:grid;
+    display: grid;
     height: 8vh;
     border-radius: 20px;
     background-color: rgba(229, 229, 236, 0.696);
-    
-    &:hover{
+
+    &:hover {
       transform: scale(1.2);
     }
   }
-  
-  .join-button{
+
+  .join-button {
     margin: 10px 20px 0px 20px;
     padding: 5px 15px 5px 15px;
     background-color: transparent;
-    color:rgba(78, 113, 241, 0.867);
-    border:none;
-    
+    color: rgba(78, 113, 241, 0.867);
+    border: none;
+
     &:hover {
       text-decoration: underline;
-      text-decoration-color:rgb(49, 126, 91);
+      text-decoration-color: rgb(49, 126, 91);
       // transform: scale(1.5);
-      
     }
-  }
-  
-  @media only screen and (max-width: 1400px){
-    .chatroom-box{
-      width: 75%;
-    }
-    
   }
 
+  @media only screen and (max-width: 1400px) {
+    .chatroom-box {
+      width: 75%;
+    }
+  }
 }
