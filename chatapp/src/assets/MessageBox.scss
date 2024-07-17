@@ -22,11 +22,45 @@
   align-self: flex-start;
   width:fit-content;
   max-width: 80%;
+  position:relative;
 
   .message-content{
     word-wrap: break-word;
     max-width: 100%; 
     margin: 5px 0 5px 0;
+  }
+
+  .blueCircle{
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    border:solid;
+    border-color: black;
+    position:absolute;
+    left:0;
+    background-color: blue;
+  }
+
+  .greenCircle{
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    border:solid;
+    border-color: black;
+    left:0;
+    position:absolute;
+    background-color: green;
+  }
+
+  .purpleCircle{
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    border:solid;
+    border-color: black;
+    left:0;
+    position:absolute;
+    background-color: purple;
   }
 }
 
@@ -41,11 +75,45 @@
   align-self: flex-end;
   width:fit-content;
   max-width: 80%;
+  position:relative;
   
   .message-content{
     word-break: break-word;
     max-width: 100%; 
     margin: 5px 0 5px 0;
+  }
+
+  .blueCircle{
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    border:solid;
+    border-color: black;
+    position:absolute;
+    right:0;
+    background-color: blue;
+  }
+
+  .greenCircle{
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    border:solid;
+    border-color: black;
+    right:0;
+    position:absolute;
+    background-color: green;
+  }
+
+  .purpleCircle{
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    border:solid;
+    border-color: black;
+    right:0;
+    position:absolute;
+    background-color: purple;
   }
 
   .message-date {
