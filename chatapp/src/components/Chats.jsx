@@ -30,11 +30,8 @@ function Chats(props) {
       });
     };
     fetchMsgData();
-  }, []);
-
-  useEffect(() => {
     fetchUserData();
-  }, [])
+  }, [roomId]);
 
   const fetchUserData = async () => {
     onSnapshot(userRef, (querySnapshot) => {
@@ -114,13 +111,14 @@ function Chats(props) {
   const handleBackButton = () => {
     setRoomSelected(false)
   }
+  console.log('roomid', roomId)
 
   return (
     <>
-      <div id='back-signout-buttons'>
+      {/* <div id='back-signout-buttons'>
         <button id='back-button' onClick={handleBackButton}>back</button>
         <button id="signout-button" onClick={() => logOut()}>sign out</button>
-      </div>
+      </div> */}
       <div id='chats-div'>
         <span id='chat-buttons'>
           <button id='refresh' onClick={() => refreshChat()}>refresh</button>
@@ -130,7 +128,7 @@ function Chats(props) {
         {roomData.length > 0 ? 
           <div id='messages-container' ref={chatBoxRef}>
             {roomData?.map((msg, index) => 
-              <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg} userData={userData} />
+              <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg} userData={userData} roomId={roomId} />
             )}           
           </div>
           : <p id='emptyChat-message'>This is the beginning of the chat.</p>

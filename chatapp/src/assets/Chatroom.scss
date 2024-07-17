@@ -1,5 +1,6 @@
 #chatroom-container {
-  display: grid;
+  display: flex;
+  flex-direction: row;
 
   #chatroom-div {
     color: rgba(73, 69, 69, 0.747);
