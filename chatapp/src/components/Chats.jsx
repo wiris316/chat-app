@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { collection, addDoc, deleteDoc, getDocs, orderBy, query, onSnapshot} from 'firebase/firestore';
+import { collection, addDoc, doc, deleteDoc, getDocs, getDoc, updateDoc, orderBy, query, onSnapshot} from 'firebase/firestore';
 // import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc,getDocs, orderBy, query, onSnapshot, limit } from 'firebase/firestore';
 import '../assets/Chats.scss';
 import MessageBox from './MessageBox';
@@ -7,29 +7,47 @@ import MessageBox from './MessageBox';
 function Chats(props) {
   const { currentUser, roomId, setRoomSelected, firestore, logOut } = props;
   const [roomData, setRoomData] = useState([]);
+  const [userData, setUserData] = useState({})
   const [inputValue, setInputValue] = useState('');
   const chatBoxRef = useRef(null);
   const messagesRef = collection(firestore, 'chatroom', roomId, 'messages'); 
+  const userRef = collection(firestore, 'chatroom', roomId, 'users')
+  const userDocRef = doc(firestore, 'chatroom', roomId, 'users', 'usernames')
   const sortedQuery = query(messagesRef, orderBy('createdAt'), /*limit(15)*/);
   
   useEffect(() => {
-    const fetchRoomData = async () => {
+    const fetchMsgData = async () => {
       onSnapshot(sortedQuery, (querySnapshot) => {
-        const data = [];
+        const msgData = [];
         querySnapshot.forEach((doc) => {
-          data.push(doc.data());
+          msgData.push(doc.data());
         });
-        setRoomData(data); 
+        setRoomData(msgData); 
 
         setTimeout(() => {
           scrollToBottom();
         }, 1000)
       });
     };
-    fetchRoomData();
-
+    fetchMsgData();
   }, []);
-  
+
+  useEffect(() => {
+    fetchUserData();
+  }, [])
+
+  const fetchUserData = async () => {
+    onSnapshot(userRef, (querySnapshot) => {
+      const userObjects = [];
+      querySnapshot.forEach((doc) => {
+        let user = doc.data() 
+        userObjects.push(user);
+      })
+
+      setUserData(userObjects)
+    })
+  }
+
   const refreshChat = async () => {
     onSnapshot(sortedQuery, (querySnapshot) => {
       const data = [];
@@ -57,6 +75,17 @@ function Chats(props) {
     })
     setInputValue('');
     scrollToBottom();
+
+    await updateDoc(userDocRef, {
+      [currentUser.uid]: 'value1',
+      }, { merge: true })
+      .then(() => {
+        console.log('Document successfully updated!');
+      })
+      .catch((error) => {
+          console.error('Error updating document: ', error);
+      });
+    
   }
 
   const clearChat = async () => {
@@ -88,7 +117,7 @@ function Chats(props) {
         {roomData.length > 0 ? 
           <div id='messages-container' ref={chatBoxRef}>
             {roomData?.map((msg, index) => 
-              <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg} />
+              <MessageBox key={index} currentUser={currentUser} uid={msg.uid} data={msg} userData={userData} />
             )}           
           </div>
           : <p id='emptyChat-message'>This is the beginning of the chat.</p>
