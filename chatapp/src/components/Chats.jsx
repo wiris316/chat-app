@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { collection, addDoc, doc, deleteDoc, getDocs, getDoc, updateDoc, orderBy, query, onSnapshot} from 'firebase/firestore';
+import { collection, addDoc, doc, deleteDoc, getDocs, getDoc, setDoc, updateDoc, orderBy, query, onSnapshot} from 'firebase/firestore';
 // import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc,getDocs, orderBy, query, onSnapshot, limit } from 'firebase/firestore';
 import '../assets/Chats.scss';
 import MessageBox from './MessageBox';
@@ -12,7 +12,7 @@ function Chats(props) {
   const chatBoxRef = useRef(null);
   const messagesRef = collection(firestore, 'chatroom', roomId, 'messages'); 
   const userRef = collection(firestore, 'chatroom', roomId, 'users')
-  const userDocRef = doc(firestore, 'chatroom', roomId, 'users', 'usernames')
+  const userDocRef = doc(firestore, 'chatroom', roomId, 'users', currentUser.uid)
   const sortedQuery = query(messagesRef, orderBy('createdAt'), /*limit(15)*/);
   
   useEffect(() => {
@@ -73,18 +73,31 @@ function Chats(props) {
       text: inputValue,
       uid: currentUser.uid,
     })
+
+    // Check if current user is new, if yes, add to db collection
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (!userDocSnap.exists()) {
+      await setDoc(userDocRef, {
+        [currentUser.uid]: `user${userData.length+1}`
+      })
+      console.log('Added new user to chatroom')
+    } else {
+      console.log('Current user')
+    }
+
     setInputValue('');
     scrollToBottom();
 
-    await updateDoc(userDocRef, {
-      [currentUser.uid]: 'value1',
-      }, { merge: true })
-      .then(() => {
-        console.log('Document successfully updated!');
-      })
-      .catch((error) => {
-          console.error('Error updating document: ', error);
-      });
+    // await updateDoc(userDocRef, {
+    //   [currentUser.uid]: 'value1',
+    //   }, { merge: true })
+    //   .then(() => {
+    //     console.log('Document successfully updated!');
+    //   })
+    //   .catch((error) => {
+    //       console.error('Error updating document: ', error);
+    //   });
     
   }
 
