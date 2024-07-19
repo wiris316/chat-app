@@ -1,3 +1,5 @@
+@import "global";
+
 #message-container {
   display: flex;
   flex-direction: column;
@@ -12,7 +14,8 @@
 }
 
 .sent {
-  background: rgba(145, 176, 247, 0.48);
+  // background: rgba(145, 176, 247, 0.48);
+  background: $sent-background;
   color: rgb(73, 69, 69);
   margin: 0 75px 10px 3px;
   border-radius: 10px;
@@ -65,8 +68,10 @@
 }
 
 .received {
-  background-color: rgba(78, 113, 241, 0.867);
-  color: rgb(233, 226, 226);
+  // background-color: rgba(78, 113, 241, 0.867);
+  background-color:rgb(66, 186, 230);
+  background-color:$received-background;
+  color: whitesmoke;
   margin: 0 3px 10px 75px;
   border-radius: 10px;
   text-align: left;

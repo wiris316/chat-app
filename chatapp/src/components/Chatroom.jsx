@@ -13,6 +13,31 @@ function Chatroom(props) {
   const [roomSelected, setRoomSelected] = useState(false);
   const [roomId, setRoomId] = useState(null);
   const [showSidebar, setShowSidebar] = useState(true);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (windowSize.width < 1000 && roomSelected) {
+      setShowSidebar(false)
+    } else if (windowSize.width > 1000) {
+      setShowSidebar(true)
+    }
+  }, [windowSize, roomSelected])
 
   useEffect(() => {
     const fetchChatRooms = async () => {
@@ -59,21 +84,6 @@ function Chatroom(props) {
 
   return (
     <>
-      {/* {
-        roomSelected ?
-        <Chats auth={auth} validated={validated} setValidated={setValidated} currentUser={currentUser} roomId={roomId} setRoomSelected={setRoomSelected} firestore={firestore} logOut={logOut} />
-      :
-        <div id='chatroom-container'>
-          <button id='signout-button' onClick={()=>logOut()}>sign out</button>
-          <div id='chatroom-div'>
-            {chatRooms.length > 0 && chatRooms.map((room, i) =>
-              <div key={i} className='chatroom-box'>{room.id}
-                <button className='join-button' onClick={()=> handleJoinRoom(room.id)}>join</button>
-              </div>
-            )}
-          </div>
-        </div>
-        } */}
       <button id="signout-button" onClick={() => logOut()}>
         sign out
       </button>

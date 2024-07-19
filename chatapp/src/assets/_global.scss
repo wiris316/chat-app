@@ -1,5 +1,5 @@
-// $font-labels: "Inconsolata";
-// $font-descriptions: "Raleway", sans-serif;
+$font-labels: "Inconsolata";
+$font-descriptions: "Raleway", sans-serif;
 // $theme-purple: #d5b6fb;
 // $theme-purple-darker: #caacee;
 // $theme-green: #63e4cf;
@@ -7,5 +7,7 @@
 // $theme-darkmode-bg: #30435c;
 // $theme-darkmode-header-pink: pink;
 
-$skyblue: rgb(66, 186, 230);
-$gray: gray;
+$skyblue: rgba(246, 248, 248, 0.93);
+$gray: #a5aaaaea;
+$sent-background:  rgba(176, 226, 239, 0.747);
+$received-background: rgb(51, 143, 176);

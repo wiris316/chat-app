@@ -16,7 +16,8 @@
   justify-content: center;
   width: 100%;
   height: 90vh;
-
+  font-family: $font-descriptions;
+  
   #chatroom-div {
     color: rgba(73, 69, 69, 0.747);
     display: flex;
@@ -24,6 +25,8 @@
     margin: 0 0 0 0;
     height: 90vh;
     min-width: 450px;
+    box-shadow: 2px 2px 15px #606464ea;
+
 
     #chatroom-header-container {
       display: flex;
@@ -31,7 +34,7 @@
       margin: 0;
       color: white;
       // background-color: rgb(230, 172, 182);
-      background-color: $skyblue;
+      background-color: $received-background;
       display: sticky;
       position: relative;
       overflow: hidden;
@@ -43,7 +46,8 @@
 
       #sidebar-icon {
         position: absolute;
-        right: 0;
+        right: 8px;
+        top: 8px;
         width: 30px;
         height: 30px;
       }
@@ -51,24 +55,24 @@
 
     #chatroom-container {
       height: 100%;
-      border:solid rgb(66, 186, 230);
       overflow-x: hidden;
-      overflow-y: auto; 
-      scrollbar-color:  rgb(66, 186, 230) #c2d2e4; /* Thumb color and track color for firefox*/
+      overflow-y: auto;
+      scrollbar-color: $gray #dbe0e6; /* Thumb color and track color for firefox*/
+      border-radius: 0 0 15px 0;
     }
 
     /* Show scrollbar on hover for chrome*/
     &:hover #chatroom-container {
       padding-right: 0px; /* Remove padding to show scrollbar */
-      scrollbar-color:  rgb(66, 186, 230) #c2d2e4; /* Thumb color and track color on hover */
+      scrollbar-color: $gray #dbe0e6; /* Thumb color and track color on hover */
 
       &::-webkit-scrollbar {
         width: 8px;
-        background-color: rgba(136, 184, 211, 0.414); /* Scrollbar track color */
+        background-color: #dbe0e6;  /* Scrollbar track color */
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color:  rgb(66, 186, 230); /* Scrollbar thumb color */
+        background-color: $gray; /* Scrollbar thumb color */
       }
     }
 
@@ -76,7 +80,7 @@
     #chatroom-container::-webkit-scrollbar {
       width: 0; /* Remove scrollbar track */
       height: 0; /* Remove scrollbar track */
-      background-color: rgba(78, 148, 189, 0.414); /* Hide scrollbar track */
+      background-color: #dbe0e6;  
     }
   }
 
@@ -92,17 +96,17 @@
     display: grid;
     height: 100px;
     // background-color: rgb(246, 246, 247);
-    background-color: rgba(246, 246, 247, 0);
     border-bottom: 1px solid rgb(216, 233, 231);
 
     &:hover {
-      background-color:rgba(66, 186, 230, 0.242);
+      background-color: rgba(144, 143, 143, 0.242);
     }
 
-    .chatroom-box-content{
-      background-color: rgba(66, 186, 230, 0.449);
-      border-radius:20px;
+    .chatroom-box-content {
+      background-color: $skyblue;
+      border-radius: 20px;
       margin: 0 20px;
+      box-shadow: 2px 2px 15px #a5aaaaea;
     }
   }
 
