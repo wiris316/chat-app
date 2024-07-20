@@ -26,9 +26,12 @@ function Chats(props) {
     logOut,
     showSidebar,
     handleSidebarClick,
+    senderIcon, 
+    setSenderIcon,
+    userData,
+    setUserData
   } = props;
   const [roomData, setRoomData] = useState([]);
-  const [userData, setUserData] = useState({});
   const [inputValue, setInputValue] = useState("");
   const chatBoxRef = useRef(null);
   const messagesRef = collection(firestore, "chatroom", roomId, "messages");
@@ -170,6 +173,8 @@ function Chats(props) {
                 data={msg}
                 userData={userData}
                 roomId={roomId}
+                senderIcon={senderIcon}
+                setSenderIcon={setSenderIcon}
               />
             ))}
           </div>

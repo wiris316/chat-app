@@ -13,40 +13,51 @@ function Chatroom(props) {
   const [roomSelected, setRoomSelected] = useState(false);
   const [roomId, setRoomId] = useState(null);
   const [showSidebar, setShowSidebar] = useState(true);
+  const [userData, setUserData] = useState([]);
+  const [senderIcon, setSenderIcon] = useState({});
+  const [userLegend, setUserLegend] = useState([]);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
   });
 
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       });
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
     if (windowSize.width < 1000 && roomSelected) {
-      setShowSidebar(false)
-      const sidebar = document.getElementById('chatroom-div-hidden');
+      setShowSidebar(false);
+      const sidebar = document.getElementById("chatroom-div-hidden");
       if (sidebar) {
-        sidebar.style.display= 'none'
+        sidebar.style.display = "none";
       }
     } else if (windowSize.width > 1000) {
-      setShowSidebar(true)
-      const sidebar = document.getElementById('chatroom-div-hidden');
+      setShowSidebar(true);
+      const sidebar = document.getElementById("chatroom-div-hidden");
       if (sidebar) {
-        sidebar.style.display = 'flex'
+        sidebar.style.display = "flex";
       }
     }
-  
-  }, [windowSize, roomSelected])
+  }, [windowSize, roomSelected]);
+
+  useEffect(() => {
+    const arr = [];
+    userData.forEach((ele) => {
+      console.log("Object val", Object.values(ele)[0]);
+      arr.push({ [Object.values(ele)[0]]: senderIcon[Object.keys(ele)[0]] });
+    });
+    setUserLegend(arr);
+  }, [userData, senderIcon]);
 
   useEffect(() => {
     const fetchChatRooms = async () => {
@@ -86,15 +97,15 @@ function Chatroom(props) {
   };
 
   const handleSidebarClick = () => {
-    setShowSidebar(!showSidebar)
+    setShowSidebar(!showSidebar);
     if (roomSelected && showSidebar) {
       setTimeout(() => {
-        const sidebar = document.getElementById('chatroom-div-hidden');
-        sidebar.style.display= 'none'
-      },200)
+        const sidebar = document.getElementById("chatroom-div-hidden");
+        sidebar.style.display = "none";
+      }, 200);
     } else {
-      const sidebar = document.getElementById('chatroom-div-hidden');
-      sidebar.style.display = 'flex'
+      const sidebar = document.getElementById("chatroom-div-hidden");
+      sidebar.style.display = "flex";
     }
   };
 
@@ -105,30 +116,36 @@ function Chatroom(props) {
       </button>
       <div id="container">
         {/* {showSidebar && */}
-          <div id={showSidebar? 'chatroom-div': 'chatroom-div-hidden'}>
-            <div id="chatroom-header-container">
-              <h3 id="chatroom-header">ROOMS</h3>
-              <TbLayoutSidebarLeftCollapseFilled
-                id="sidebar-icon"
-                onClick={handleSidebarClick}
-              />
-            </div>
-            <div id="chatroom-container">
-              {chatRooms.length > 0 &&
-                chatRooms.map((room, i) => (
-                  <div
-                    key={i}
-                    className="chatroom-box"
-                    onClick={() => handleJoinRoom(room.id)}
-                  >
-                    <span className="chatroom-box-content">
-                      {room.id}
-                    </span>
-                  </div>
-                ))}
-            </div>
+        <div id={showSidebar ? "chatroom-div" : "chatroom-div-hidden"}>
+          <div id="chatroom-header-container">
+            <h3 id="chatroom-header">ROOMS</h3>
+            <TbLayoutSidebarLeftCollapseFilled
+              id="sidebar-icon"
+              onClick={handleSidebarClick}
+            />
           </div>
-         {/* } */}
+          <section id="chatroom-container">
+            {chatRooms.length > 0 &&
+              chatRooms.map((room, i) => (
+                <div
+                  key={i}
+                  className="chatroom-box"
+                  onClick={() => handleJoinRoom(room.id)}
+                >
+                  <span className="chatroom-box-content">{room.id}</span>
+                </div>
+              ))}
+          </section>
+          <section id="user-legend">
+            <h3 id="user-legend-header">Chatters in the room</h3>
+            <ul>
+              {userLegend.map((user, i) => (
+                <li>{`${Object.keys(user)[0]} - ${Object.values(user)[0]}`}</li>
+              ))}
+            </ul>
+          </section>
+        </div>
+        {/* } */}
         {/* <div className="vertical-divider"></div> */}
         {roomSelected && (
           <Chats
@@ -142,6 +159,10 @@ function Chatroom(props) {
             logOut={logOut}
             showSidebar={showSidebar}
             handleSidebarClick={handleSidebarClick}
+            senderIcon={senderIcon}
+            setSenderIcon={setSenderIcon}
+            userData={userData}
+            setUserData={setUserData}
           />
         )}
       </div>

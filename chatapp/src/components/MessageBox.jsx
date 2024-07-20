@@ -2,10 +2,9 @@ import '../assets/MessageBox.scss';
 import { useEffect, useState } from 'react';
 
 function MessageBox(props) {
-  const { data, uid, currentUser, userData} = props;
+  const { data, uid, currentUser, userData, senderIcon, setSenderIcon} = props;
   const messageClass = currentUser.uid === uid ? 'sent' : 'received';
   const [msgs, setMsgs] = useState({})
-  const [senderIcon, setSenderIcon] = useState({})
 
   useEffect(() => {
     setMsgWithDate()

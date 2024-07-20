@@ -17,13 +17,13 @@
   width: 100%;
   height: 90vh;
   font-family: $font-descriptions;
-  
+
   #chatroom-div-hidden {
     transform: translateX(-500px); /* Move sidebar off-screen */
     transition: transform 0.3s ease;
     height: 90vh;
   }
-  
+
   #chatroom-div {
     color: rgba(73, 69, 69, 0.747);
     display: flex;
@@ -32,7 +32,6 @@
     height: 90vh;
     min-width: 450px;
     box-shadow: 2px 2px 15px #606464ea;
-
 
     #chatroom-header-container {
       display: flex;
@@ -74,7 +73,7 @@
 
       &::-webkit-scrollbar {
         width: 8px;
-        background-color: #dbe0e6;  /* Scrollbar track color */
+        background-color: #dbe0e6; /* Scrollbar track color */
       }
 
       &::-webkit-scrollbar-thumb {
@@ -86,7 +85,27 @@
     #chatroom-container::-webkit-scrollbar {
       width: 0; /* Remove scrollbar track */
       height: 0; /* Remove scrollbar track */
-      background-color: #dbe0e6;  
+      background-color: #dbe0e6;
+    }
+
+    #user-legend {
+      height: 40%;
+      box-shadow: 2px 2px 15px #a5aaaaea;
+      background-color: rgba(246, 248, 248, 0.93);
+
+      #user-legend-header {
+        color: $received-background;
+      }
+
+      ul {
+        border-radius: 20px;
+        margin: 0 15px 15px;
+        text-align: left;
+
+        li {
+          list-style-type: none;
+        }
+      }
     }
   }
 
