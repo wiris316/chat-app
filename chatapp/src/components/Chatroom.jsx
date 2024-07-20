@@ -16,7 +16,7 @@ function Chatroom(props) {
   const [userData, setUserData] = useState([]);
   const [senderIcon, setSenderIcon] = useState({});
   const [userLegend, setUserLegend] = useState([]);
-  const [activeBox, setActiveBox] = useState('');
+  const [activeBox, setActiveBox] = useState("");
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -74,10 +74,6 @@ function Chatroom(props) {
       }
     };
     fetchChatRooms();
-
-    // return () => {
-    //   fetchChatRooms()
-    // };
   }, []);
 
   const logOut = () => {
@@ -94,7 +90,7 @@ function Chatroom(props) {
   const handleJoinRoom = (roomId, i) => {
     setRoomId(roomId);
     setRoomSelected(true);
-    setActiveBox(i)
+    setActiveBox(i);
   };
 
   const handleSidebarClick = () => {
@@ -130,21 +126,25 @@ function Chatroom(props) {
               chatRooms.map((room, i) => (
                 <div
                   key={i}
-                  className={`chatroom-box ${activeBox === i ? 'active' : ''}`}
+                  className={`chatroom-box ${activeBox === i ? "active" : ""}`}
                   onClick={() => handleJoinRoom(room.id, i)}
                 >
                   <span className="chatroom-box-content">{room.id}</span>
                 </div>
               ))}
           </section>
-          <section id="user-legend">
-            <h3 id="user-legend-header">Chatters in the room</h3>
-            <ul>
-              {userLegend.map((user, i) => (
-                <li>{`${Object.keys(user)[0]} - ${Object.values(user)[0]}`}</li>
-              ))}
-            </ul>
-          </section>
+          {roomSelected && (
+            <section id="user-legend">
+              <h3 id="user-legend-header">Chatters in the room</h3>
+              <ul>
+                {userLegend.map((user, i) => (
+                  <li>{`${Object.keys(user)[0]} - ${
+                    Object.values(user)[0]
+                  }`}</li>
+                ))}
+              </ul>
+            </section>
+          )}
         </div>
         {/* } */}
         {/* <div className="vertical-divider"></div> */}
