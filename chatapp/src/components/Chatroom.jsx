@@ -16,6 +16,7 @@ function Chatroom(props) {
   const [userData, setUserData] = useState([]);
   const [senderIcon, setSenderIcon] = useState({});
   const [userLegend, setUserLegend] = useState([]);
+  const [activeBox, setActiveBox] = useState('');
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -53,7 +54,6 @@ function Chatroom(props) {
   useEffect(() => {
     const arr = [];
     userData.forEach((ele) => {
-      console.log("Object val", Object.values(ele)[0]);
       arr.push({ [Object.values(ele)[0]]: senderIcon[Object.keys(ele)[0]] });
     });
     setUserLegend(arr);
@@ -91,9 +91,10 @@ function Chatroom(props) {
       });
   };
 
-  const handleJoinRoom = (id) => {
-    setRoomId(id);
+  const handleJoinRoom = (roomId, i) => {
+    setRoomId(roomId);
     setRoomSelected(true);
+    setActiveBox(i)
   };
 
   const handleSidebarClick = () => {
@@ -129,8 +130,8 @@ function Chatroom(props) {
               chatRooms.map((room, i) => (
                 <div
                   key={i}
-                  className="chatroom-box"
-                  onClick={() => handleJoinRoom(room.id)}
+                  className={`chatroom-box ${activeBox === i ? 'active' : ''}`}
+                  onClick={() => handleJoinRoom(room.id, i)}
                 >
                   <span className="chatroom-box-content">{room.id}</span>
                 </div>
