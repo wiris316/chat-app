@@ -34,9 +34,18 @@ function Chatroom(props) {
   useEffect(() => {
     if (windowSize.width < 1000 && roomSelected) {
       setShowSidebar(false)
+      const sidebar = document.getElementById('chatroom-div-hidden');
+      if (sidebar) {
+        sidebar.style.display= 'none'
+      }
     } else if (windowSize.width > 1000) {
       setShowSidebar(true)
+      const sidebar = document.getElementById('chatroom-div-hidden');
+      if (sidebar) {
+        sidebar.style.display = 'flex'
+      }
     }
+  
   }, [windowSize, roomSelected])
 
   useEffect(() => {
@@ -77,8 +86,15 @@ function Chatroom(props) {
   };
 
   const handleSidebarClick = () => {
-    if (roomSelected) {
-      setShowSidebar(!showSidebar);
+    setShowSidebar(!showSidebar)
+    if (roomSelected && showSidebar) {
+      setTimeout(() => {
+        const sidebar = document.getElementById('chatroom-div-hidden');
+        sidebar.style.display= 'none'
+      },200)
+    } else {
+      const sidebar = document.getElementById('chatroom-div-hidden');
+      sidebar.style.display = 'flex'
     }
   };
 
@@ -88,8 +104,8 @@ function Chatroom(props) {
         sign out
       </button>
       <div id="container">
-        {showSidebar &&
-          <div id="chatroom-div">
+        {/* {showSidebar && */}
+          <div id={showSidebar? 'chatroom-div': 'chatroom-div-hidden'}>
             <div id="chatroom-header-container">
               <h3 id="chatroom-header">ROOMS</h3>
               <TbLayoutSidebarLeftCollapseFilled
@@ -112,7 +128,7 @@ function Chatroom(props) {
                 ))}
             </div>
           </div>
-        }
+         {/* } */}
         {/* <div className="vertical-divider"></div> */}
         {roomSelected && (
           <Chats

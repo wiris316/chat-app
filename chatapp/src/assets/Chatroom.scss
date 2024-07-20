@@ -18,6 +18,12 @@
   height: 90vh;
   font-family: $font-descriptions;
   
+  #chatroom-div-hidden {
+    transform: translateX(-500px); /* Move sidebar off-screen */
+    transition: transform 0.3s ease;
+    height: 90vh;
+  }
+  
   #chatroom-div {
     color: rgba(73, 69, 69, 0.747);
     display: flex;
@@ -54,7 +60,7 @@
     }
 
     #chatroom-container {
-      height: 100%;
+      height: 90vh;
       overflow-x: hidden;
       overflow-y: auto;
       scrollbar-color: $gray #dbe0e6; /* Thumb color and track color for firefox*/
