@@ -33,15 +33,17 @@ function Chatroom(props) {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [roomSelected]);
 
   useEffect(() => {
     if (windowSize.width < 1000 && roomSelected) {
       setShowSidebar(false);
-      const sidebar = document.getElementById("chatroom-div-hidden");
-      if (sidebar) {
-        sidebar.style.display = "none";
-      }
+      setTimeout(() => {
+        const sidebar = document.getElementById("chatroom-div-hidden");
+        if (sidebar) {
+          sidebar.style.display = "none";
+        }
+      }, 500);
     } else if (windowSize.width > 1000) {
       setShowSidebar(true);
       const sidebar = document.getElementById("chatroom-div-hidden");
@@ -99,7 +101,7 @@ function Chatroom(props) {
       setTimeout(() => {
         const sidebar = document.getElementById("chatroom-div-hidden");
         sidebar.style.display = "none";
-      }, 200);
+      }, 500);
     } else {
       const sidebar = document.getElementById("chatroom-div-hidden");
       sidebar.style.display = "flex";
@@ -138,7 +140,7 @@ function Chatroom(props) {
               <h3 id="user-legend-header">Chatters in the room</h3>
               <ul>
                 {userLegend.map((user, i) => (
-                  <li>{`${Object.keys(user)[0]} - ${
+                  <li key={i}>{`${Object.keys(user)[0]} - ${
                     Object.values(user)[0]
                   }`}</li>
                 ))}
