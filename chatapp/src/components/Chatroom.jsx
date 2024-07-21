@@ -5,6 +5,7 @@ import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 // import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, doc, onSnapshot, limit } from 'firebase/firestore';
 import Chats from "./Chats";
+import UserLegend from "./UserLegend";
 
 function Chatroom(props) {
   const { auth, validated, setValidated, currentUser } = props;
@@ -15,7 +16,7 @@ function Chatroom(props) {
   const [showSidebar, setShowSidebar] = useState(true);
   const [userData, setUserData] = useState([]);
   const [senderIcon, setSenderIcon] = useState({});
-  const [userLegend, setUserLegend] = useState([]);
+  const [userLegendInfo, setUserLegendInfo] = useState([]);
   const [activeBox, setActiveBox] = useState("");
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
@@ -58,7 +59,7 @@ function Chatroom(props) {
     userData.forEach((ele) => {
       arr.push({ [Object.values(ele)[0]]: senderIcon[Object.keys(ele)[0]] });
     });
-    setUserLegend(arr);
+    setUserLegendInfo(arr);
   }, [userData, senderIcon]);
 
   useEffect(() => {
@@ -121,7 +122,6 @@ function Chatroom(props) {
         sign out
       </button>
       <div id="container">
-        {/* {showSidebar && */}
         <div id={showSidebar ? "chatroom-div" : "chatroom-div-hidden"}>
           <div id="chatroom-header-container">
             <h3 id="chatroom-header">ROOMS</h3>
@@ -143,19 +143,9 @@ function Chatroom(props) {
               ))}
           </section>
           {(roomSelected && showSidebar) && (
-            <section id="user-legend">
-              <h3 id="user-legend-header">Chatters in the room</h3>
-              <ul>
-                {userLegend.map((user, i) => (
-                  <li key={i}>{`${Object.keys(user)[0]} - ${
-                    Object.values(user)[0]
-                  }`}</li>
-                ))}
-              </ul>
-            </section>
+            <UserLegend userLegendInfo={userLegendInfo} />
           )}
         </div>
-        {/* } */}
         {/* <div className="vertical-divider"></div> */}
         {roomSelected && (
           <Chats
