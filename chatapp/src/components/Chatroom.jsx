@@ -142,7 +142,7 @@ function Chatroom(props) {
                 </div>
               ))}
           </section>
-          {roomSelected && (
+          {(roomSelected && showSidebar) && (
             <section id="user-legend">
               <h3 id="user-legend-header">Chatters in the room</h3>
               <ul>

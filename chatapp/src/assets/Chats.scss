@@ -7,7 +7,7 @@
   border-color: #a2caa4f4;
   border-width: 1.5px;
   box-shadow: 2px 2px 15px #0b0c0cea;
-  height: 90vh;
+  height: 85vh;
   margin: auto;
   width: 50%;
   max-width: 850px;
@@ -124,13 +124,11 @@
 
 @media only screen and (max-width: 800px) {
   #chats-div {
+    height: 80vh;
     min-width: 80vw;
   }
 
   #sidebar-icon-in-chat{
     display:block;
   }
-}
-
-@media only screen and (max-height: 800px) {
 }
