@@ -48,6 +48,14 @@
         padding: 15px 0;
       }
 
+      #menu-icon {
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        width: 30px;
+        height: 30px;
+      }
+      
       #sidebar-icon {
         position: absolute;
         right: 8px;
@@ -130,9 +138,15 @@
       border-radius: 20px;
       margin: 0 20px;
       box-shadow: 2px 2px 15px #a5aaaaea;
+      position: relative;
+
+      .edit-room-icon {
+        position: absolute;
+        right: 10px;
+      }
     }
 
-    &.active{
+    &.active {
       background-color: $gray;
     }
   }

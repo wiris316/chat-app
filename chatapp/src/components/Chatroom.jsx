@@ -16,7 +16,7 @@ import {
 // import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, doc, onSnapshot, limit } from 'firebase/firestore';
 import Chats from "./Chats";
 import UserLegend from "./UserLegend";
-// import SidebarMenu from "./SidebarMenu";
+import SidebarMenu from "./SidebarMenu";
 
 function Chatroom(props) {
   const { auth, validated, setValidated, currentUser } = props;
@@ -148,7 +148,7 @@ function Chatroom(props) {
         <div id={showSidebar ? "chatroom-div" : "chatroom-div-hidden"}>
           <div id="chatroom-header-container">
             <TbPlaylistAdd id="menu-icon" onClick={handleSidebarMenuClick} />
-            {/* {sidebarMenuOpen && <SidebarMenu addChatroom={addChatroom} />} */}
+            {sidebarMenuOpen && <SidebarMenu addChatroom={addChatroom} />}
             <h3 id="chatroom-header">ROOMS</h3>
             <TbLayoutSidebarLeftCollapseFilled
               id="sidebar-icon"

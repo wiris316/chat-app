@@ -1,0 +1,20 @@
+@import "global";
+
+#sidebarMenu-container {
+  position: absolute;
+  background-color: whitesmoke;
+  left: 0;
+  top: 40px;
+  padding: 5px;
+  height: max-content;
+  border: solid;
+  border-radius: 20px;
+  display: grid;
+  box-shadow: 2px 2px 15px #0b0c0cea;
+
+  button {
+    color: $received-background;
+    text-align: left;
+    border-radius: 20px;
+  }
+}
