@@ -123,7 +123,14 @@
 }
 
 @media only screen and (max-width: 800px) {
+  #chats-div {
+    min-width: 80vw;
+  }
+
   #sidebar-icon-in-chat{
     display:block;
   }
+}
+
+@media only screen and (max-height: 800px) {
 }

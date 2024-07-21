@@ -30,8 +30,8 @@ function MessageBox(props) {
     <>
       <div id='message-container'>
         {msgs &&
-          Object.keys(msgs).map((date) =>
-            <div className={messageClass}>
+          Object.keys(msgs).map((date, i) =>
+            <div className={messageClass} key={i}>
               <div className={`${senderIcon[uid]}Circle`}></div>
               <span className='msg-date'>
                 <p className='message-content'>{msgs[date]}</p>

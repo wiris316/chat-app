@@ -96,7 +96,12 @@ function Chatroom(props) {
   };
 
   const handleSidebarClick = () => {
-    setShowSidebar(!showSidebar);
+    if (windowSize.width < 1000 && !showSidebar) {
+      setRoomSelected(false);
+    } else if (windowSize.width < 1000 && !roomSelected) {
+      setRoomSelected(true);
+    }
+
     if (roomSelected && showSidebar) {
       setTimeout(() => {
         const sidebar = document.getElementById("chatroom-div-hidden");
@@ -106,6 +111,8 @@ function Chatroom(props) {
       const sidebar = document.getElementById("chatroom-div-hidden");
       sidebar.style.display = "flex";
     }
+
+    setShowSidebar(!showSidebar);
   };
 
   return (
