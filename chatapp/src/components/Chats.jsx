@@ -25,7 +25,7 @@ function Chats(props) {
     firestore,
     logOut,
     showSidebar,
-    handleSidebarClick,
+    toggleSidebar,
     senderIcon, 
     setSenderIcon,
     userData,
@@ -151,7 +151,7 @@ function Chats(props) {
         {!showSidebar && (
           <TbLayoutSidebarLeftCollapseFilled
             id="sidebar-icon-in-chat"
-            onClick={handleSidebarClick}
+            onClick={toggleSidebar}
           />
         )}
         <span id="chat-buttons">

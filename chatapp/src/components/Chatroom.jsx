@@ -1,11 +1,22 @@
 import "../assets/Chatroom.scss";
 import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
+import {
+  doc,
+  getFirestore,
+  collection,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
+import {
+  TbEdit,
+  TbLayoutSidebarLeftCollapseFilled,
+  TbPlaylistAdd,
+} from "react-icons/tb";
 // import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, doc, onSnapshot, limit } from 'firebase/firestore';
 import Chats from "./Chats";
 import UserLegend from "./UserLegend";
+// import SidebarMenu from "./SidebarMenu";
 
 function Chatroom(props) {
   const { auth, validated, setValidated, currentUser } = props;
@@ -18,6 +29,8 @@ function Chatroom(props) {
   const [senderIcon, setSenderIcon] = useState({});
   const [userLegendInfo, setUserLegendInfo] = useState([]);
   const [activeBox, setActiveBox] = useState("");
+  const [sidebarMenuOpen, setSidebarMenuOpen] = useState(false);
+  const chatroomRef = collection(firestore, "chatroom");
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -90,13 +103,17 @@ function Chatroom(props) {
       });
   };
 
+  const addChatroom = async () => {
+    await setDoc(doc(firestore, "chatroom", "testing"), {});
+  };
+
   const handleJoinRoom = (roomId, i) => {
     setRoomId(roomId);
     setRoomSelected(true);
     setActiveBox(i);
   };
 
-  const handleSidebarClick = () => {
+  const toggleSidebar = () => {
     if (windowSize.width < 1000 && !showSidebar) {
       setRoomSelected(false);
     } else if (windowSize.width < 1000 && !roomSelected) {
@@ -110,10 +127,16 @@ function Chatroom(props) {
       }, 500);
     } else {
       const sidebar = document.getElementById("chatroom-div-hidden");
-      sidebar.style.display = "flex";
+      if (sidebar) {
+        sidebar.style.display = "flex";
+      }
     }
 
     setShowSidebar(!showSidebar);
+  };
+
+  const handleSidebarMenuClick = () => {
+    setSidebarMenuOpen(!sidebarMenuOpen);
   };
 
   return (
@@ -124,10 +147,12 @@ function Chatroom(props) {
       <div id="container">
         <div id={showSidebar ? "chatroom-div" : "chatroom-div-hidden"}>
           <div id="chatroom-header-container">
+            <TbPlaylistAdd id="menu-icon" onClick={handleSidebarMenuClick} />
+            {/* {sidebarMenuOpen && <SidebarMenu addChatroom={addChatroom} />} */}
             <h3 id="chatroom-header">ROOMS</h3>
             <TbLayoutSidebarLeftCollapseFilled
               id="sidebar-icon"
-              onClick={handleSidebarClick}
+              onClick={toggleSidebar}
             />
           </div>
           <section id="chatroom-container">
@@ -138,11 +163,14 @@ function Chatroom(props) {
                   className={`chatroom-box ${activeBox === i ? "active" : ""}`}
                   onClick={() => handleJoinRoom(room.id, i)}
                 >
-                  <span className="chatroom-box-content">{room.id}</span>
+                  <span className="chatroom-box-content">
+                    {room.id}
+                    <TbEdit className="edit-room-icon" />
+                  </span>
                 </div>
               ))}
           </section>
-          {(roomSelected && showSidebar) && (
+          {roomSelected && showSidebar && userData.length > 0 && (
             <UserLegend userLegendInfo={userLegendInfo} />
           )}
         </div>
@@ -158,7 +186,7 @@ function Chatroom(props) {
             firestore={firestore}
             logOut={logOut}
             showSidebar={showSidebar}
-            handleSidebarClick={handleSidebarClick}
+            toggleSidebar={toggleSidebar}
             senderIcon={senderIcon}
             setSenderIcon={setSenderIcon}
             userData={userData}
