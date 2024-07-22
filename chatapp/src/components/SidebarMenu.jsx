@@ -1,14 +1,28 @@
 import "../assets/SidebarMenu.scss";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineAdd } from "react-icons/md";
 
 const SidebarMenu = (props) => {
-  const { addChatroom, toggleDeleteMode } = props;
+  const { addChatroom, toggleDeleteMode, setSidebarMenuOpen } = props;
   const [showInputBox, setShowInputBox] = useState(false);
   const [nameInput, setNameInput] = useState("");
+  const ref = useRef(null);
   const toggleInputBox = () => {
     setShowInputBox(!showInputBox);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setSidebarMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
 
   const handleInputChange = (e) => {
     setNameInput(e.target.value);
@@ -22,7 +36,7 @@ const SidebarMenu = (props) => {
   };
 
   return (
-    <div id="sidebarMenu-container">
+    <div id="sidebarMenu-container" ref={ref}>
       <div className="menu-options">
         <button onClick={toggleInputBox}>Create Room</button>
         {showInputBox && (

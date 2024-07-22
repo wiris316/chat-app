@@ -157,9 +157,9 @@ function Chats(props) {
           />
         )}
         <span id="chat-buttons">
-          <button id="refresh" onClick={() => refreshChat()}>
+          {/* <button id="refresh" onClick={() => refreshChat()}>
             refresh
-          </button>
+          </button> */}
           <button id="clear" onClick={() => clearChat()}>
             clear
           </button>

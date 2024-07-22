@@ -141,6 +141,10 @@ function Chatroom(props) {
     // create new document and store roomName
     await setDoc(doc(firestore, "chatroom", roomId, "roomName", roomId), data);
 
+    if (deleteMode) {
+      toggleDeleteMode();
+    }
+    
     setRefreshRoom(!refreshRoom);
     setSidebarMenuOpen(!sidebarMenuOpen);
     handleJoinRoom({ [roomId]: newRoomName });
@@ -176,7 +180,6 @@ function Chatroom(props) {
 
   const handleSidebarMenuClick = () => {
     setSidebarMenuOpen(!sidebarMenuOpen);
-    setDeleteMode(false);
   };
 
   const handleSelectBox = (selectedRoom) => {
@@ -245,6 +248,7 @@ function Chatroom(props) {
               <SidebarMenu
                 addChatroom={addChatroom}
                 toggleDeleteMode={toggleDeleteMode}
+                setSidebarMenuOpen={setSidebarMenuOpen}
               />
             )}
             <h3 id="chatroom-header">ROOMS</h3>
