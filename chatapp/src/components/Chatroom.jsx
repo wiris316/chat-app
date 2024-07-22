@@ -103,8 +103,8 @@ function Chatroom(props) {
       });
   };
 
-  const addChatroom = async () => {
-    await setDoc(doc(firestore, "chatroom", "testing"), {});
+  const addChatroom = async (newRoomName) => {
+    await setDoc(doc(firestore, "chatroom", newRoomName), {});
   };
 
   const handleJoinRoom = (roomId, i) => {

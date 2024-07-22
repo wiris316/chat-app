@@ -67,7 +67,7 @@
 
     #chatroom-container {
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: scroll;
       scrollbar-color: $gray #dbe0e6; /* Thumb color and track color for firefox*/
       border-radius: 0 0 15px 0;
     }

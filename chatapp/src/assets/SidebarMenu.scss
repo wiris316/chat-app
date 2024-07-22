@@ -7,14 +7,38 @@
   top: 40px;
   padding: 5px;
   height: max-content;
+  width:45%;
   border: solid;
   border-radius: 20px;
   display: grid;
   box-shadow: 2px 2px 15px #0b0c0cea;
+  text-align: left;
+
+  .menu-options{
+    border:solid $received-background;
+    border-radius: 18px;
+    padding:2px;
+
+    .icon-input-span{
+      display:flex;
+      margin: 8px 0;
+
+      #add-icon{
+        color: $received-background;
+      }
+
+      #new-room-input{
+        width: 80%;
+      }
+    }
+
+  }
 
   button {
     color: $received-background;
     text-align: left;
     border-radius: 20px;
   }
+
+  
 }
