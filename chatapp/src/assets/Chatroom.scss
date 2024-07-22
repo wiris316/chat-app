@@ -55,7 +55,7 @@
         width: 30px;
         height: 30px;
       }
-      
+
       #sidebar-icon {
         position: absolute;
         right: 8px;
@@ -113,6 +113,43 @@
         }
       }
     }
+
+    #delete-settings {
+      height: 20%;
+      box-shadow: 2px 2px 15px #a5aaaaea;
+      background-color: rgba(246, 248, 248, 0.93);
+      position: relative;
+      padding: 0;
+
+      h3 {
+        color: $received-background;
+      }
+
+      #exit-delete-mode {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 0 10px;
+
+        &:hover {
+          cursor: pointer;
+          scale: 1.5;
+        }
+      }
+
+      button {
+        background-color: rgba(246, 248, 248, 0.93);
+        border: solid;
+        margin: 0 10px 20px 10px;
+        border-radius: 10px;
+        color: $font-color-btn;
+      }
+
+      #delete-btn {
+        background-color: $red;
+        color: rgba(26, 24, 24, 0.956);
+      }
+    }
   }
 
   .vertical-divider {
@@ -124,7 +161,7 @@
     padding: 10px 0;
     width: 20vw;
     min-width: 350px;
-    display: grid;
+    display: flex;
     height: 100px;
     // background-color: rgb(246, 246, 247);
     // border-bottom: 1px solid rgb(216, 233, 231);
@@ -133,12 +170,18 @@
       background-color: rgba(144, 143, 143, 0.242);
     }
 
+    .delete-checkbox-icon {
+      margin: 0 0 0 10px;
+      height: 25px;
+      width: 25px;
+    }
     .chatroom-box-content {
       background-color: $skyblue;
       border-radius: 20px;
       margin: 0 20px;
       box-shadow: 2px 2px 15px #a5aaaaea;
       position: relative;
+      width: 100%;
 
       .edit-room-icon {
         position: absolute;

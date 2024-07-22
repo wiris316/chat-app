@@ -3,7 +3,7 @@ import { useState } from "react";
 import { MdOutlineAdd } from "react-icons/md";
 
 const SidebarMenu = (props) => {
-  const { addChatroom } = props;
+  const { addChatroom, toggleDeleteMode } = props;
   const [showInputBox, setShowInputBox] = useState(false);
   const [nameInput, setNameInput] = useState("");
   const toggleInputBox = () => {
@@ -20,7 +20,7 @@ const SidebarMenu = (props) => {
       setNameInput("");
     }
   };
-  
+
   return (
     <div id="sidebarMenu-container">
       <div className="menu-options">
@@ -40,7 +40,7 @@ const SidebarMenu = (props) => {
           </span>
         )}
       </div>
-      <span className="menu-options" onClick={toggleInputBox}>
+      <span className="menu-options" onClick={toggleDeleteMode}>
         <button>Delete Room</button>
       </span>
     </div>

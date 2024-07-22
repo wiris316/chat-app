@@ -5,6 +5,7 @@ import {
   doc,
   getFirestore,
   collection,
+  deleteDoc,
   getDocs,
   setDoc,
 } from "firebase/firestore";
@@ -12,6 +13,8 @@ import {
   TbEdit,
   TbLayoutSidebarLeftCollapseFilled,
   TbPlaylistAdd,
+  TbSquareRoundedCheck,
+  TbSquareRoundedCheckFilled,
 } from "react-icons/tb";
 // import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, doc, onSnapshot, limit } from 'firebase/firestore';
 import Chats from "./Chats";
@@ -31,6 +34,8 @@ function Chatroom(props) {
   const [activeBox, setActiveBox] = useState("");
   const [sidebarMenuOpen, setSidebarMenuOpen] = useState(false);
   const [refreshRoom, setRefreshRoom] = useState(false);
+  const [selectedBox, setSelectedBox] = useState([]);
+  const [deleteMode, setDeleteMode] = useState(false);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -140,6 +145,39 @@ function Chatroom(props) {
 
   const handleSidebarMenuClick = () => {
     setSidebarMenuOpen(!sidebarMenuOpen);
+    setDeleteMode(false);
+  };
+
+  const handleSelectBox = (roomId) => {
+    if (roomId === "select-all-boxes") {
+      const allRooms = [];
+      chatRooms.forEach((room) => {
+        allRooms.push(room.id);
+      });
+      setSelectedBox(allRooms);
+    } else if (roomId === "deselect-all-boxes") {
+      setSelectedBox([]);
+    } else if (selectedBox.includes(roomId)) {
+      const newArr = selectedBox.filter((ele) => ele !== roomId);
+      setSelectedBox(newArr);
+    } else {
+      setSelectedBox([...selectedBox, roomId]);
+    }
+  };
+
+  const toggleDeleteMode = () => {
+    setSelectedBox([]);
+    setDeleteMode(!deleteMode);
+    setSidebarMenuOpen(false);
+  };
+
+  const handleDeleteRooms = () => {
+    selectedBox.forEach(async (room) => {
+      await deleteDoc(doc(firestore, "chatroom", room));
+    });
+    setRefreshRoom(!refreshRoom);
+    setRoomSelected(false);
+    setDeleteMode(false);
   };
 
   return (
@@ -151,30 +189,73 @@ function Chatroom(props) {
         <div id={showSidebar ? "chatroom-div" : "chatroom-div-hidden"}>
           <div id="chatroom-header-container">
             <TbPlaylistAdd id="menu-icon" onClick={handleSidebarMenuClick} />
-            {sidebarMenuOpen && <SidebarMenu addChatroom={addChatroom} />}
+            {sidebarMenuOpen && (
+              <SidebarMenu
+                addChatroom={addChatroom}
+                toggleDeleteMode={toggleDeleteMode}
+              />
+            )}
             <h3 id="chatroom-header">ROOMS</h3>
-            <TbLayoutSidebarLeftCollapseFilled
-              id="sidebar-icon"
-              onClick={toggleSidebar}
-            />
+            {roomSelected && (
+              <TbLayoutSidebarLeftCollapseFilled
+                id="sidebar-icon"
+                onClick={toggleSidebar}
+              />
+            )}
           </div>
           <section id="chatroom-container">
             {chatRooms.length > 0 &&
               chatRooms.map((room, i) => (
                 <div
                   key={i}
-                  className={`chatroom-box ${activeBox === room.id ? "active" : ""}`}
-                  onClick={() => handleJoinRoom(room.id)}
+                  className={`chatroom-box ${
+                    activeBox === room.id ? "active" : ""
+                  }`}
                 >
-                  <span className="chatroom-box-content">
+                  {deleteMode &&
+                    (selectedBox.includes(room.id) ? (
+                      <TbSquareRoundedCheckFilled
+                        className="delete-checkbox-icon"
+                        onClick={() => handleSelectBox(room.id)}
+                      />
+                    ) : (
+                      <TbSquareRoundedCheck
+                        className="delete-checkbox-icon"
+                        onClick={() => handleSelectBox(room.id)}
+                      />
+                    ))}
+                  <span
+                    className="chatroom-box-content"
+                    onClick={() => handleJoinRoom(room.id)}
+                  >
                     {room.id}
                     <TbEdit className="edit-room-icon" />
                   </span>
                 </div>
               ))}
           </section>
-          {roomSelected && showSidebar && userData.length > 0 && (
-            <UserLegend userLegendInfo={userLegendInfo} />
+          {roomSelected &&
+            showSidebar &&
+            userData.length > 0 &&
+            !deleteMode && <UserLegend userLegendInfo={userLegendInfo} />}
+          {deleteMode && (
+            <div id="delete-settings">
+              <p id="exit-delete-mode" onClick={toggleDeleteMode}>
+                x
+              </p>
+              <h3>Delete Settings</h3>
+              <section id="delete-buttons">
+                <button onClick={() => handleSelectBox("select-all-boxes")}>
+                  Select All
+                </button>
+                <button onClick={() => handleSelectBox("deselect-all-boxes")}>
+                  Deselect All
+                </button>
+                <button id="delete-btn" onClick={handleDeleteRooms}>
+                  Delete
+                </button>
+              </section>
+            </div>
           )}
         </div>
         {/* <div className="vertical-divider"></div> */}
