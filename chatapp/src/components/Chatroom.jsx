@@ -30,7 +30,7 @@ function Chatroom(props) {
   const [userLegendInfo, setUserLegendInfo] = useState([]);
   const [activeBox, setActiveBox] = useState("");
   const [sidebarMenuOpen, setSidebarMenuOpen] = useState(false);
-  const chatroomRef = collection(firestore, "chatroom");
+  const [refreshRoom, setRefreshRoom] = useState(false);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -90,7 +90,7 @@ function Chatroom(props) {
       }
     };
     fetchChatRooms();
-  }, []);
+  }, [refreshRoom]);
 
   const logOut = () => {
     signOut(auth)
@@ -105,12 +105,15 @@ function Chatroom(props) {
 
   const addChatroom = async (newRoomName) => {
     await setDoc(doc(firestore, "chatroom", newRoomName), {});
+    setRefreshRoom(!refreshRoom);
+    setSidebarMenuOpen(!sidebarMenuOpen);
+    handleJoinRoom(newRoomName);
   };
 
-  const handleJoinRoom = (roomId, i) => {
+  const handleJoinRoom = (roomId) => {
     setRoomId(roomId);
     setRoomSelected(true);
-    setActiveBox(i);
+    setActiveBox(roomId);
   };
 
   const toggleSidebar = () => {
@@ -160,8 +163,8 @@ function Chatroom(props) {
               chatRooms.map((room, i) => (
                 <div
                   key={i}
-                  className={`chatroom-box ${activeBox === i ? "active" : ""}`}
-                  onClick={() => handleJoinRoom(room.id, i)}
+                  className={`chatroom-box ${activeBox === room.id ? "active" : ""}`}
+                  onClick={() => handleJoinRoom(room.id)}
                 >
                   <span className="chatroom-box-content">
                     {room.id}
