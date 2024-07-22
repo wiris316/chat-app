@@ -6,6 +6,7 @@ import {
   getFirestore,
   collection,
   deleteDoc,
+  getDoc,
   getDocs,
   setDoc,
 } from "firebase/firestore";
@@ -26,7 +27,7 @@ function Chatroom(props) {
   const firestore = getFirestore();
   const [chatRooms, setChatRooms] = useState([]);
   const [roomSelected, setRoomSelected] = useState(false);
-  const [roomId, setRoomId] = useState(null);
+  const [roomInfo, setRoomInfo] = useState([]);
   const [showSidebar, setShowSidebar] = useState(true);
   const [userData, setUserData] = useState([]);
   const [senderIcon, setSenderIcon] = useState({});
@@ -36,6 +37,8 @@ function Chatroom(props) {
   const [refreshRoom, setRefreshRoom] = useState(false);
   const [selectedBox, setSelectedBox] = useState([]);
   const [deleteMode, setDeleteMode] = useState(false);
+  const [editInput, setEditInput] = useState("");
+  const [editMode, setEditMode] = useState("");
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -85,16 +88,36 @@ function Chatroom(props) {
       try {
         const chatRoomCollection = collection(firestore, "chatroom");
         const chatRoomSnapshot = await getDocs(chatRoomCollection);
-        const chatRoomData = chatRoomSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setChatRooms(chatRoomData);
+        const chatRoomId = chatRoomSnapshot.docs.map((doc) => doc.id);
+        return chatRoomId;
       } catch (error) {
         console.error("Error fetching chatrooms:", error);
       }
     };
-    fetchChatRooms();
+
+    const fetchRoomName = async (roomId) => {
+      try {
+        const promises = roomId.map(async (id) => {
+          const roomNameDocRef = doc(firestore, "chatroom", id, "roomName", id);
+          const roomNameDocSnap = await getDoc(roomNameDocRef);
+          if (roomNameDocSnap.exists()) {
+            const data = roomNameDocSnap.data();
+            const obj = { [id]: data.roomName };
+            return obj;
+          }
+        });
+        const results = await Promise.all(promises);
+        setChatRooms(results);
+      } catch (error) {
+        console.error("error in fettching room name");
+      }
+    };
+
+    const fetchData = async () => {
+      const chatRoomIds = await fetchChatRooms();
+      await fetchRoomName(chatRoomIds);
+    };
+    fetchData();
   }, [refreshRoom]);
 
   const logOut = () => {
@@ -109,16 +132,24 @@ function Chatroom(props) {
   };
 
   const addChatroom = async (newRoomName) => {
-    await setDoc(doc(firestore, "chatroom", newRoomName), {});
+    const data = { roomName: newRoomName };
+    const roomId = `room${chatRooms.length + 1}`;
+
+    // create existent ancestor document for roomName
+    await setDoc(doc(firestore, "chatroom", roomId), {});
+
+    // create new document and store roomName
+    await setDoc(doc(firestore, "chatroom", roomId, "roomName", roomId), data);
+
     setRefreshRoom(!refreshRoom);
     setSidebarMenuOpen(!sidebarMenuOpen);
-    handleJoinRoom(newRoomName);
+    handleJoinRoom({ [roomId]: newRoomName });
   };
 
-  const handleJoinRoom = (roomId) => {
-    setRoomId(roomId);
+  const handleJoinRoom = (room) => {
+    setRoomInfo(room);
     setRoomSelected(true);
-    setActiveBox(roomId);
+    setActiveBox(roomName);
   };
 
   const toggleSidebar = () => {
@@ -148,20 +179,17 @@ function Chatroom(props) {
     setDeleteMode(false);
   };
 
-  const handleSelectBox = (roomId) => {
-    if (roomId === "select-all-boxes") {
-      const allRooms = [];
-      chatRooms.forEach((room) => {
-        allRooms.push(room.id);
-      });
+  const handleSelectBox = (selectedRoom) => {
+    if (selectedRoom === "select-all-boxes") {
+      const allRooms = chatRooms.map((room) => Object.keys(room)[0]);
       setSelectedBox(allRooms);
-    } else if (roomId === "deselect-all-boxes") {
+    } else if (selectedRoom === "deselect-all-boxes") {
       setSelectedBox([]);
-    } else if (selectedBox.includes(roomId)) {
-      const newArr = selectedBox.filter((ele) => ele !== roomId);
+    } else if (selectedBox.includes(selectedRoom)) {
+      const newArr = selectedBox.filter((ele) => ele !== selectedRoom);
       setSelectedBox(newArr);
     } else {
-      setSelectedBox([...selectedBox, roomId]);
+      setSelectedBox([...selectedBox, selectedRoom]);
     }
   };
 
@@ -172,12 +200,36 @@ function Chatroom(props) {
   };
 
   const handleDeleteRooms = () => {
-    selectedBox.forEach(async (room) => {
-      await deleteDoc(doc(firestore, "chatroom", room));
-    });
-    setRefreshRoom(!refreshRoom);
-    setRoomSelected(false);
-    setDeleteMode(false);
+    const userResponse = window.confirm(
+      "Are you sure you want to delete the selected chatrooms?"
+    );
+    if (userResponse) {
+      selectedBox.forEach(async (room) => {
+        await deleteDoc(doc(firestore, "chatroom", room));
+      });
+      setRefreshRoom(!refreshRoom);
+      setRoomSelected(false);
+      setDeleteMode(false);
+    }
+  };
+
+  const toggleEditMode = (e, selectedRoom) => {
+    e.stopPropagation();
+    editMode === selectedRoom ? setEditMode("") : setEditMode(selectedRoom);
+  };
+
+  const handleEditRoomName = async (e, roomId) => {
+    if (e.key === "Enter") {
+      const data = { roomName: editInput };
+      await setDoc(
+        doc(firestore, "chatroom", roomId, "roomName", roomId),
+        data
+      );
+      setRoomInfo({ [roomId]: editInput });
+      setRefreshRoom(!refreshRoom);
+      setEditInput("");
+      setEditMode("");
+    }
   };
 
   return (
@@ -209,27 +261,46 @@ function Chatroom(props) {
                 <div
                   key={i}
                   className={`chatroom-box ${
-                    activeBox === room.id ? "active" : ""
+                    activeBox === Object.keys(room)[0] ? "active" : ""
                   }`}
                 >
                   {deleteMode &&
-                    (selectedBox.includes(room.id) ? (
+                    (selectedBox.includes(Object.keys(room)[0]) ? (
                       <TbSquareRoundedCheckFilled
                         className="delete-checkbox-icon"
-                        onClick={() => handleSelectBox(room.id)}
+                        onClick={() => handleSelectBox(Object.keys(room)[0])}
                       />
                     ) : (
                       <TbSquareRoundedCheck
                         className="delete-checkbox-icon"
-                        onClick={() => handleSelectBox(room.id)}
+                        onClick={() => handleSelectBox(Object.keys(room)[0])}
                       />
                     ))}
                   <span
                     className="chatroom-box-content"
-                    onClick={() => handleJoinRoom(room.id)}
+                    onClick={() => handleJoinRoom(room)}
                   >
-                    {room.id}
-                    <TbEdit className="edit-room-icon" />
+                    {editMode && editMode === Object.keys(room)[0] ? (
+                      <input
+                        autoFocus
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => setEditInput(e.target.value)}
+                        value={editInput}
+                        onBlur={() => setEditMode(false)}
+                        onKeyDown={(e) =>
+                          handleEditRoomName(e, Object.keys(room)[0])
+                        }
+                        placeholder="New Chatroom Name"
+                      ></input>
+                    ) : (
+                      Object.values(room)[0]
+                    )}
+                    {!deleteMode && (
+                      <TbEdit
+                        className="edit-room-icon"
+                        onClick={(e) => toggleEditMode(e, Object.keys(room)[0])}
+                      />
+                    )}
                   </span>
                 </div>
               ))}
@@ -265,7 +336,7 @@ function Chatroom(props) {
             validated={validated}
             setValidated={setValidated}
             currentUser={currentUser}
-            roomId={roomId}
+            roomInfo={roomInfo}
             setRoomSelected={setRoomSelected}
             firestore={firestore}
             logOut={logOut}

@@ -20,7 +20,7 @@ import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 function Chats(props) {
   const {
     currentUser,
-    roomId,
+    roomInfo,
     setRoomSelected,
     firestore,
     logOut,
@@ -34,6 +34,8 @@ function Chats(props) {
   const [roomData, setRoomData] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const chatBoxRef = useRef(null);
+  const roomId = Object.keys(roomInfo)[0];
+  const roomName = Object.values(roomInfo)[0];
   const messagesRef = collection(firestore, "chatroom", roomId, "messages");
   const userRef = collection(firestore, "chatroom", roomId, "users");
   const userDocRef = doc(
@@ -61,7 +63,7 @@ function Chats(props) {
     };
     fetchMsgData();
     fetchUserData();
-  }, [roomId]);
+  }, [roomInfo]);
 
   const fetchUserData = async () => {
     onSnapshot(userRef, (querySnapshot) => {
@@ -162,7 +164,7 @@ function Chats(props) {
             clear
           </button>
         </span>
-        <h4>{roomId}</h4>
+        <h4>{roomName}</h4>
         {roomData.length > 0 ? (
           <div id="messages-container" ref={chatBoxRef}>
             {roomData?.map((msg, index) => (
