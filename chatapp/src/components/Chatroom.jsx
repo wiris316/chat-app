@@ -153,7 +153,7 @@ function Chatroom(props) {
   const handleJoinRoom = (room) => {
     setRoomInfo(room);
     setRoomSelected(true);
-    setActiveBox(roomName);
+    setActiveBox(Object.keys(room)[0]);
   };
 
   const toggleSidebar = () => {
