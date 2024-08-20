@@ -1,4 +1,4 @@
-@import "global";
+@import "../../assets/global";
 
 #signout-button {
   background-color: transparent;
@@ -121,13 +121,15 @@
     }
 
     #delete-settings {
-      height: 20%;
+      height: min-content;
+      // width:1;
       box-shadow: 2px 2px 15px #a5aaaaea;
       background-color: rgba(246, 248, 248, 0.93);
       padding: 0;
 
       h3 {
         color: $received-background;
+        margin-bottom: 0;
       }
 
       #exit-delete-mode {
@@ -144,15 +146,30 @@
 
       button {
         background-color: rgba(246, 248, 248, 0.93);
-        border: solid;
+        border: solid 1.5px;
         margin: 0 10px 20px 10px;
-        border-radius: 10px;
+        border-radius: 20px;
+        padding: 0 5px;
         color: $font-color-btn;
       }
 
-      #delete-btn {
-        background-color: $red;
-        color: rgba(26, 24, 24, 0.956);
+      #desc-buttons-container {
+        display: grid;
+        justify-content: center;
+        margin-bottom: 23px;
+
+        #delete-desc {
+          font-size: smaller;
+          width: 300px;
+          margin: 10px auto;
+        }
+        .btns {
+          margin-bottom: 10px;
+        }
+        #delete-btn {
+          background-color: $red;
+          color: rgba(26, 24, 24, 0.956);
+        }
       }
     }
   }

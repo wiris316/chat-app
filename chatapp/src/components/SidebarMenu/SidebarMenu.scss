@@ -1,4 +1,4 @@
-@import "global";
+@import "../../assets/global";
 
 #sidebarMenu-container {
   position: absolute;
@@ -15,9 +15,10 @@
   text-align: left;
 
   .menu-options{
-    border:solid $received-background;
+    border:solid 1.5px $received-background;
     border-radius: 18px;
     padding:2px;
+    margin: 2px 0px;
 
     .icon-input-span{
       display:flex;

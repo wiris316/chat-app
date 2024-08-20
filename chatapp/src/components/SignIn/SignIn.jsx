@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from 'firebase/app';
-import '../assets/SignIn.scss';
+import './SignIn.scss';
 
 const firebaseConfig = {
-  
+
 };
 
 const app = initializeApp(firebaseConfig);

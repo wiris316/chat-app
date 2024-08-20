@@ -1,4 +1,4 @@
-import "../assets/SidebarMenu.scss";
+import "./SidebarMenu.scss";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineAdd } from "react-icons/md";
 

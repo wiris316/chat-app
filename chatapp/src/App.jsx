@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import './App.css'; 
-import SignIn from './components/SignIn';
-import Chatroom from './components/Chatroom';
+import SignIn from './components/SignIn/SignIn';
+import Chatroom from './components/Chatroom/Chatroom';
 
 const auth = getAuth();
 

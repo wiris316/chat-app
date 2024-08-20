@@ -13,8 +13,8 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 // import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc,getDocs, orderBy, query, onSnapshot, limit } from 'firebase/firestore';
-import "../assets/Chats.scss";
-import MessageBox from "./MessageBox";
+import "./Chats.scss";
+import MessageBox from "../MessageBox/MessageBox";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 
 function Chats(props) {
@@ -26,10 +26,10 @@ function Chats(props) {
     logOut,
     showSidebar,
     toggleSidebar,
-    senderIcon, 
+    senderIcon,
     setSenderIcon,
     userData,
-    setUserData
+    setUserData,
   } = props;
   const [roomData, setRoomData] = useState([]);
   const [inputValue, setInputValue] = useState("");

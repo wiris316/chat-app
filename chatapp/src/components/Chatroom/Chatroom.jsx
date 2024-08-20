@@ -1,4 +1,4 @@
-import "../assets/Chatroom.scss";
+import "./Chatroom.scss";
 import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
 import {
@@ -18,9 +18,9 @@ import {
   TbSquareRoundedCheckFilled,
 } from "react-icons/tb";
 // import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, doc, onSnapshot, limit } from 'firebase/firestore';
-import Chats from "./Chats";
-import UserLegend from "./UserLegend";
-import SidebarMenu from "./SidebarMenu";
+import Chats from "../Chats/Chats";
+import UserLegend from "../UserLegend/UserLegend";
+import SidebarMenu from "../SidebarMenu/SidebarMenu";
 
 function Chatroom(props) {
   const { auth, validated, setValidated, currentUser } = props;
@@ -225,33 +225,40 @@ function Chatroom(props) {
   }
 
   const handleDeleteRooms = () => {
-    const userResponse = window.confirm(
-      "Are you sure you want to delete the selected chatrooms?"
-    );
-    if (userResponse) {
-      // selectedBox.forEach(async (room) => {
-      //   await deleteDoc(doc(firestore, "chatroom", room));
-      // });
-      selectedBox.forEach(async (room) => {
-        try {
-          const roomDocRef = doc(firestore, "chatroom", room);
+    if (selectedBox.length > 0) {
+      const userResponse = window.confirm(
+        "Are you sure you want to delete the selected chatroom(s)?"
+      );
+      if (userResponse) {
+        // selectedBox.forEach(async (room) => {
+        //   await deleteDoc(doc(firestore, "chatroom", room));
+        // });
+        selectedBox.forEach(async (room) => {
+          try {
+            const roomDocRef = doc(firestore, "chatroom", room);
 
-          const subcollectionNames = ["messages", "roomName", "users"];
-          for (const subcollectionName of subcollectionNames) {
-            const subcollectionRef = collection(roomDocRef, subcollectionName);
-            await deleteCollection(subcollectionRef); // Recursively delete each subcollection
+            const subcollectionNames = ["messages", "roomName", "users"];
+            for (const subcollectionName of subcollectionNames) {
+              const subcollectionRef = collection(
+                roomDocRef,
+                subcollectionName
+              );
+              await deleteCollection(subcollectionRef); // Recursively delete each subcollection
+            }
+
+            // Delete the room document itself
+            await deleteDoc(roomDocRef);
+          } catch (error) {
+            console.error("Error deleting user and nested data: ", error);
           }
-
-          // Delete the room document itself
-          await deleteDoc(roomDocRef);
-        } catch (error) {
-          console.error("Error deleting user and nested data: ", error);
-        }
-        console.log("User and all nested data successfully deleted");
-        setRefreshRoom(!refreshRoom);
-        setRoomSelected(false);
-        // setDeleteMode(false);
-      });
+          console.log("User and all nested data successfully deleted");
+          setRefreshRoom(!refreshRoom);
+          setRoomSelected(false);
+          // setDeleteMode(false);
+        });
+      }
+    } else {
+      alert("Please select a chatroom to delete.");
     }
   };
 
@@ -348,25 +355,37 @@ function Chatroom(props) {
                 </div>
               ))}
           </section>
-          {roomSelected &&
-            showSidebar &&
-            userData.length > 0 &&
-            !deleteMode && <UserLegend userLegendInfo={userLegendInfo} />}
+          {roomSelected && showSidebar && !deleteMode && (
+            <UserLegend userLegendInfo={userLegendInfo} />
+          )}
           {deleteMode && (
             <div id="delete-settings">
-              <p id="exit-delete-mode" onClick={toggleDeleteMode}>
+              <div id="exit-delete-mode" onClick={toggleDeleteMode}>
                 x
-              </p>
+              </div>
               <h3>Delete Settings</h3>
-              <section id="delete-buttons">
-                <button onClick={() => handleSelectBox("select-all-boxes")}>
+              <section id="desc-buttons-container">
+                <p id="delete-desc">
+                  Deleting chatrooms are irreversible. Please select the chatroom you would like to delete.
+                </p>
+                <button
+                  className="btns"
+                  id="delete-btn"
+                  onClick={handleDeleteRooms}
+                >
+                  Delete
+                </button>
+                <button
+                  className="btns"
+                  onClick={() => handleSelectBox("select-all-boxes")}
+                >
                   Select All
                 </button>
-                <button onClick={() => handleSelectBox("deselect-all-boxes")}>
+                <button
+                  className="btns"
+                  onClick={() => handleSelectBox("deselect-all-boxes")}
+                >
                   Deselect All
-                </button>
-                <button id="delete-btn" onClick={handleDeleteRooms}>
-                  Delete
                 </button>
               </section>
             </div>

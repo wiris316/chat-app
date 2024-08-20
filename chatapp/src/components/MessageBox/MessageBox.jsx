@@ -1,4 +1,4 @@
-import '../assets/MessageBox.scss';
+import './MessageBox.scss';
 import { useEffect, useState } from 'react';
 
 function MessageBox(props) {
