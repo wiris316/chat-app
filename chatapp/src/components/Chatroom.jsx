@@ -144,7 +144,7 @@ function Chatroom(props) {
     if (deleteMode) {
       toggleDeleteMode();
     }
-    
+
     setRefreshRoom(!refreshRoom);
     setSidebarMenuOpen(!sidebarMenuOpen);
     handleJoinRoom({ [roomId]: newRoomName });
@@ -202,17 +202,56 @@ function Chatroom(props) {
     setSidebarMenuOpen(false);
   };
 
+  async function deleteCollection(collectionRef, room) {
+    try {
+      const snapshot = await getDocs(collectionRef);
+
+      for (const docSnapshot of snapshot.docs) {
+        const docRef = doc(firestore, docSnapshot.ref.path); // Create a ref to the document
+
+        // Recursively delete all subcollections
+        const subcollectionNames = ["messages", "roomName", "users"];
+        for (const subcollectionName of subcollectionNames) {
+          const subcollectionRef = collection(docRef, subcollectionName);
+          await deleteCollection(subcollectionRef, room); // Recursively delete each subcollection
+        }
+
+        // Delete the document
+        await deleteDoc(docRef);
+      }
+    } catch (error) {
+      console.error("Error deleting collection: ", error);
+    }
+  }
+
   const handleDeleteRooms = () => {
     const userResponse = window.confirm(
       "Are you sure you want to delete the selected chatrooms?"
     );
     if (userResponse) {
+      // selectedBox.forEach(async (room) => {
+      //   await deleteDoc(doc(firestore, "chatroom", room));
+      // });
       selectedBox.forEach(async (room) => {
-        await deleteDoc(doc(firestore, "chatroom", room));
+        try {
+          const roomDocRef = doc(firestore, "chatroom", room);
+
+          const subcollectionNames = ["messages", "roomName", "users"];
+          for (const subcollectionName of subcollectionNames) {
+            const subcollectionRef = collection(roomDocRef, subcollectionName);
+            await deleteCollection(subcollectionRef); // Recursively delete each subcollection
+          }
+
+          // Delete the room document itself
+          await deleteDoc(roomDocRef);
+        } catch (error) {
+          console.error("Error deleting user and nested data: ", error);
+        }
+        console.log("User and all nested data successfully deleted");
+        setRefreshRoom(!refreshRoom);
+        setRoomSelected(false);
+        // setDeleteMode(false);
       });
-      setRefreshRoom(!refreshRoom);
-      setRoomSelected(false);
-      setDeleteMode(false);
     }
   };
 
