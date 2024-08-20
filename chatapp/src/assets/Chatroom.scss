@@ -23,10 +23,9 @@
   #chatroom-div-hidden {
     transform: translateX(-500px); /* Move sidebar off-screen */
     transition: transform 1s ease;
-    height: 90vh;
   }
 
-  #chatroom-div {
+  #chatroom-div, #chatroom-div-hidden {
     color: rgba(73, 69, 69, 0.747);
     display: flex;
     flex-direction: column;
@@ -67,7 +66,7 @@
 
     #chatroom-container {
       overflow-x: hidden;
-      overflow-y: scroll;
+      overflow-y: auto;
       scrollbar-color: $gray #dbe0e6; /* Thumb color and track color for firefox*/
       border-radius: 0 0 15px 0;
     }
