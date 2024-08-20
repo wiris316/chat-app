@@ -46,7 +46,7 @@ function SignIn(props) {
 
   return (
     <>
-      <div id='signin-content'>
+      <div id='signin-container'>
         <h3 id='signin-header'>Sign In:</h3>
         <form id="signin-form" onSubmit={(e)=>signInWithEmail(e,emailVal,passwordVal)}>
           <label>Email:</label>

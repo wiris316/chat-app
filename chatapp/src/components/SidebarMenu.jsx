@@ -54,9 +54,11 @@ const SidebarMenu = (props) => {
           </span>
         )}
       </div>
-      <span className="menu-options" onClick={toggleDeleteMode}>
-        <button>Delete Room</button>
-      </span>
+      {!showInputBox && (
+        <span className="menu-options" onClick={toggleDeleteMode}>
+          <button>Delete Room</button>
+        </span>
+      )}
     </div>
   );
 };
