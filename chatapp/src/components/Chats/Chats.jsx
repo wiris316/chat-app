@@ -110,7 +110,7 @@ function Chats(props) {
       await setDoc(userDocRef, {
         [currentUser.uid]: `user${userData.length + 1}`,
       });
-      console.log("Added new user to chatroom");
+      console.log("New user added to chatroom");
     } else {
       console.log("Current user");
     }

@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import './App.css'; 
-import SignIn from './components/SignIn/SignIn';
-import Chatroom from './components/Chatroom/Chatroom';
+import { getFirestore } from "firebase/firestore";
+import "./App.css";
+import SignIn from "./components/SignIn/SignIn";
+import Chatroom from "./components/Chatroom/Chatroom";
 
 const auth = getAuth();
+const firestore = getFirestore();
 
 function App() {
-  const [validated, setValidated] = useState(false)
-  const currentUser = auth.currentUser 
+  const [validated, setValidated] = useState(false);
+  const currentUser = auth.currentUser;
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -21,11 +23,23 @@ function App() {
 
   return (
     <>
-      {currentUser ? 
-        <Chatroom auth={auth} validated={validated} setValidated={setValidated} currentUser={currentUser} />
-      : <SignIn validated={validated} setValidated={setValidated} />}
+      {currentUser ? (
+        <Chatroom
+          firestore={firestore}
+          auth={auth}
+          validated={validated}
+          setValidated={setValidated}
+          currentUser={currentUser}
+        />
+      ) : (
+        <SignIn
+          firestore={firestore}
+          validated={validated}
+          setValidated={setValidated}
+        />
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -23,8 +23,7 @@ import UserLegend from "../UserLegend/UserLegend";
 import SidebarMenu from "../SidebarMenu/SidebarMenu";
 
 function Chatroom(props) {
-  const { auth, validated, setValidated, currentUser } = props;
-  const firestore = getFirestore();
+  const { auth, firestore, validated, setValidated, currentUser } = props;
   const [chatRooms, setChatRooms] = useState([]);
   const [roomSelected, setRoomSelected] = useState(false);
   const [roomInfo, setRoomInfo] = useState([]);
