@@ -1,5 +1,7 @@
+@import "../../assets/global";
+
 #signin-container {
-  display:grid;
+  display: grid;
   justify-content: center;
   margin-top: 10%;
 
@@ -7,7 +9,7 @@
     color: rgb(73, 69, 69);
     margin-bottom: 10px;
   }
-  
+
   #signin-form {
     color: rgb(234, 234, 234);
     background-color: rgba(209, 209, 215, 0.788);
@@ -18,14 +20,14 @@
     border-color: #a2caa4f4;
     box-shadow: 2px 2px 15px #0b0c0cea;
     border-width: 1px;
-  
+
     label {
       display: flex;
       justify-content: flex-start;
       margin-top: 15px;
       color: rgb(73, 69, 69);
     }
-  
+
     .signin-input {
       border-radius: 3px;
       margin: 5px 0 5px 0;
@@ -33,26 +35,35 @@
       box-shadow: none;
       border: 0;
     }
-  
+
     #signin-form-buttons {
       display: flex;
       flex-direction: column;
       margin-top: 30px;
       justify-self: flex-end;
-  
+
       #signin-button {
         color: rgb(73, 69, 69);
         margin-left: auto;
         background-color: rgb(76, 202, 76);
+
+        &:hover {
+          scale: 1.05;
+          color: $skyblue;
+        }
       }
-  
+
       #create-account-button {
         margin-top: 5px;
         border: solid;
         border-color: rgb(75, 75, 79);
         border-width: 1px;
+
+        // &:hover {
+        //   scale: 1.05;
+        // }
       }
-  
+
       button {
         color: rgb(73, 69, 69);
         background-color: transparent;
@@ -64,4 +75,3 @@
     }
   }
 }
-

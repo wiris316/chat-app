@@ -32,8 +32,9 @@
       position: absolute;
       bottom: 10px;
       right: 10px;
-      background-color: transparent;
-      color: $font-color;
+      color: rgb(73, 69, 69);
+      background-color: rgb(76, 202, 76);
+      border-radius: 5px;
       
       &:hover {
         scale: 1.05;

@@ -13,6 +13,7 @@ import {
 import {
   TbEdit,
   TbLayoutSidebarLeftCollapseFilled,
+  TbLogout,
   TbPlaylistAdd,
   TbSquareRoundedCheck,
   TbSquareRoundedCheckFilled,
@@ -284,6 +285,7 @@ function Chatroom(props) {
     <>
       <button id="signout-button" onClick={() => logOut()}>
         sign out
+        <TbLogout/>
       </button>
       <div id="container">
         <div id={showSidebar ? "chatroom-div" : "chatroom-div-hidden"}>
@@ -340,6 +342,7 @@ function Chatroom(props) {
                           handleEditRoomName(e, Object.keys(room)[0])
                         }
                         placeholder="New Chatroom Name"
+                        className="edit-name-input"
                       ></input>
                     ) : (
                       Object.values(room)[0]
