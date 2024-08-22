@@ -1,7 +1,7 @@
 @import "../../assets/global";
 
 #CreateAccountModal-overlay {
-  background-color: rgba(128, 128, 128, 0.782);
+  background-color: rgba(213, 209, 209, 0.787);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,10 +10,35 @@
   position: absolute;
 
   #CreateAccountModal-form {
-    background-color: $skyblue;
+    background-color: rgba(209, 209, 215, 0.788);
+    border-radius: 15px;
     width: 300px;
-    height: 300px;
+    height: 250px;
     margin-top: -20%;
     box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.571);
+    position: relative;
+
+    #create-account-header {
+      color: rgb(73, 69, 69);
+    }
+
+    .create-account-input {
+      border: none;
+      border-radius: 5px;
+      margin: 5px;
+    }
+
+    #submit-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: transparent;
+      color: $font-color;
+      
+      &:hover {
+        scale: 1.05;
+        color: $skyblue;
+      }
+    }
   }
 }

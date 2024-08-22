@@ -66,10 +66,11 @@ const CreateAccountModal = ({ firestore, setOpenModal, auth }) => {
   return (
     <div id="CreateAccountModal-overlay">
       <form id="CreateAccountModal-form" ref={ref} onSubmit={handleFormSubmit}>
-        <h4>Create Account</h4>
+        <h4 id="create-account-header">Create Account</h4>
         <input
           className="create-account-input"
           placeholder="Email"
+          type="email"
           value={formVal.email}
           name="email"
           onChange={(e) => setFormVal({ ...formVal, email: e.target.value })}
@@ -78,6 +79,7 @@ const CreateAccountModal = ({ firestore, setOpenModal, auth }) => {
         <input
           className="create-account-input"
           placeholder="Password"
+          type="password"
           value={formVal.password}
           name="password"
           onChange={(e) => setFormVal({ ...formVal, password: e.target.value })}
@@ -86,12 +88,15 @@ const CreateAccountModal = ({ firestore, setOpenModal, auth }) => {
         <input
           className="create-account-input"
           placeholder="Username"
+          type="text"
+          minLength="5"
+          maxLength="12"
           value={formVal.username}
           name="username"
           onChange={(e) => setFormVal({ ...formVal, username: e.target.value })}
           required
         />
-        <button>Submit</button>
+        <button id="submit-btn">submit</button>
       </form>
     </div>
   );
