@@ -111,9 +111,7 @@ function Chats(props) {
         [currentUser.uid]: `user${userData.length + 1}`,
       });
       console.log("New user added to chatroom");
-    } else {
-      console.log("Current user");
-    }
+    } 
 
     setInputValue("");
     scrollToBottom();

@@ -117,6 +117,7 @@ function Chatroom(props) {
       const chatRoomIds = await fetchChatRooms();
       await fetchRoomName(chatRoomIds);
     };
+
     fetchData();
   }, [refreshRoom]);
 
@@ -224,38 +225,39 @@ function Chatroom(props) {
     }
   }
 
-  const handleDeleteRooms = () => {
+  const handleDeleteRooms = async () => {
     if (selectedBox.length > 0) {
       const userResponse = window.confirm(
         "Are you sure you want to delete the selected chatroom(s)?"
       );
       if (userResponse) {
-        // selectedBox.forEach(async (room) => {
-        //   await deleteDoc(doc(firestore, "chatroom", room));
-        // });
-        selectedBox.forEach(async (room) => {
-          try {
-            const roomDocRef = doc(firestore, "chatroom", room);
+        try {
+          // Handle all deletions in parallel
+          await Promise.all(
+            selectedBox.map(async (room) => {
+              const roomDocRef = doc(firestore, "chatroom", room);
 
-            const subcollectionNames = ["messages", "roomName", "users"];
-            for (const subcollectionName of subcollectionNames) {
-              const subcollectionRef = collection(
-                roomDocRef,
-                subcollectionName
-              );
-              await deleteCollection(subcollectionRef); // Recursively delete each subcollection
-            }
+              const subcollectionNames = ["messages", "roomName", "users"];
+              for (const subcollectionName of subcollectionNames) {
+                const subcollectionRef = collection(
+                  roomDocRef,
+                  subcollectionName
+                );
+                await deleteCollection(subcollectionRef); // Recursively delete each subcollection
+              }
 
-            // Delete the room document itself
-            await deleteDoc(roomDocRef);
-          } catch (error) {
-            console.error("Error deleting user and nested data: ", error);
-          }
-          console.log("User and all nested data successfully deleted");
-          setRefreshRoom(!refreshRoom);
+              // Delete the room document itself
+              await deleteDoc(roomDocRef);
+            })
+          );
+
           setRoomSelected(false);
-          // setDeleteMode(false);
-        });
+          setDeleteMode(false);
+          setRefreshRoom((prev) => !prev);
+        } catch (error) {
+          console.error("Error deleting user and nested data: ", error);
+        }
+        console.log("Nested data of chatroom successfully deleted");
       }
     } else {
       alert("Please select a chatroom to delete.");
@@ -285,7 +287,7 @@ function Chatroom(props) {
     <>
       <button id="signout-button" onClick={() => logOut()}>
         sign out
-        <TbLogout/>
+        <TbLogout />
       </button>
       <div id="container">
         <div id={showSidebar ? "chatroom-div" : "chatroom-div-hidden"}>
@@ -368,7 +370,8 @@ function Chatroom(props) {
               <h3>Delete Settings</h3>
               <section id="desc-buttons-container">
                 <p id="delete-desc">
-                  Deleting chatrooms are irreversible. Please select the chatroom you would like to delete.
+                  Deleting chatrooms are irreversible. Please select the
+                  chatroom you would like to delete.
                 </p>
                 <button
                   className="btns"
