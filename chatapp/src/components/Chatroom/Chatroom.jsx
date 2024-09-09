@@ -18,7 +18,6 @@ import {
   TbSquareRoundedCheck,
   TbSquareRoundedCheckFilled,
 } from "react-icons/tb";
-// import { getFirestore, collection, addDoc, deleteDoc, getDocs, orderBy, query, doc, onSnapshot, limit } from 'firebase/firestore';
 import Chats from "../Chats/Chats";
 import UserLegend from "../UserLegend/UserLegend";
 import SidebarMenu from "../SidebarMenu/SidebarMenu";
@@ -396,7 +395,6 @@ function Chatroom(props) {
             </div>
           )}
         </div>
-        {/* <div className="vertical-divider"></div> */}
         {roomSelected && (
           <Chats
             auth={auth}

@@ -12,7 +12,6 @@ import {
   query,
   onSnapshot,
 } from "firebase/firestore";
-// import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc,getDocs, orderBy, query, onSnapshot, limit } from 'firebase/firestore';
 import "./Chats.scss";
 import MessageBox from "../MessageBox/MessageBox";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
@@ -96,7 +95,7 @@ function Chats(props) {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-
+    
     await addDoc(messagesRef, {
       createdAt: new Date(),
       text: inputValue,
@@ -115,16 +114,6 @@ function Chats(props) {
 
     setInputValue("");
     scrollToBottom();
-
-    // await updateDoc(userDocRef, {
-    //   [currentUser.uid]: 'value1',
-    //   }, { merge: true })
-    //   .then(() => {
-    //     console.log('Document successfully updated!');
-    //   })
-    //   .catch((error) => {
-    //       console.error('Error updating document: ', error);
-    //   });
   };
 
   const clearChat = async () => {
@@ -186,6 +175,7 @@ function Chats(props) {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             maxLength={500}
+            required
           />
           <button id="send-button">send</button>
         </form>

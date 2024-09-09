@@ -22,7 +22,7 @@ function MessageBox(props) {
     if (data !== null) {
       const date = data.createdAt.toDate().toLocaleString()
       const tempObj = {[date]:[data.text]};
-      setMsgs((msg)=>tempObj);
+      setMsgs(tempObj);
     }
   }
 
