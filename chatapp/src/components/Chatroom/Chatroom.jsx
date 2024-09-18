@@ -37,7 +37,7 @@ function Chatroom(props) {
   const [selectedBox, setSelectedBox] = useState([]);
   const [deleteMode, setDeleteMode] = useState(false);
   const [editInput, setEditInput] = useState("");
-  const [editMode, setEditMode] = useState("");
+  const [editRoom, setEditRoom] = useState("");
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -265,7 +265,7 @@ function Chatroom(props) {
 
   const toggleEditMode = (e, selectedRoom) => {
     e.stopPropagation();
-    editMode === selectedRoom ? setEditMode("") : setEditMode(selectedRoom);
+    editRoom === selectedRoom ? setEditRoom("") : setEditRoom(selectedRoom);
   };
 
   const handleEditRoomName = async (e, roomId) => {
@@ -278,7 +278,7 @@ function Chatroom(props) {
       setRoomInfo({ [roomId]: editInput });
       setRefreshRoom(!refreshRoom);
       setEditInput("");
-      setEditMode("");
+      setEditRoom("");
     }
   };
 
@@ -332,13 +332,13 @@ function Chatroom(props) {
                     className="chatroom-box-content"
                     onClick={() => handleJoinRoom(room)}
                   >
-                    {editMode && editMode === Object.keys(room)[0] ? (
+                    {editRoom && editRoom === Object.keys(room)[0] ? (
                       <input
                         autoFocus
                         onClick={(e) => e.stopPropagation()}
                         onChange={(e) => setEditInput(e.target.value)}
                         value={editInput}
-                        onBlur={() => setEditMode(false)}
+                        onBlur={() => setEditRoom('')}
                         onKeyDown={(e) =>
                           handleEditRoomName(e, Object.keys(room)[0])
                         }
