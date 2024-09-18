@@ -2,12 +2,6 @@
 
 This is a React Chat Application that enables real-time messaging between users. Rather than traditional WebSocket solutions for real-time communication, this application leverages Firebase's Cloud Firestore and Firebase Authentication to simplify data synchronization, manage user authentication, and eliminate the need for direct server management.
 
-## Table of Contents
-
-- [Introduction](#react-chat-application)
-- [Features](#features)
-- [Why Firebase?](#why-firebase)
-
 ## Features
 
 - Real-time messaging
